@@ -3,20 +3,207 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cocktail API</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Currencity</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </head>
   <body>
-    <header>
-      <h1>Vorlage für interaktive Medien II Test</h1>
-    </header>
-    <main>
-      <h2>Main Content</h2>
-      <p>This is the main content of the page.</p>
-    </main>
-    <footer>
-      <p>This is the footer of the page.</p>
-    </footer>
-    <script src="js/script.js" type="module"></script>
+    <!-- ── NAVIGATION: Karte | LCI | Alle Preise ── -->
+    <nav id="topnav">
+      <div class="nav-logo">Curren<span>city</span></div>
+      <div class="nav-links">
+        <a href="#" class="nav-link active" id="nav-karte">Karte</a>
+        <a href="lci.html" class="nav-link" id="nav-lci">LCI</a>
+        <a href="preise.html" class="nav-link" id="nav-preise">Alle Preise</a>
+      </div>
+      <div class="nav-spacer"></div>
+    </nav>
+
+    <!-- ── WELCOME MODAL ── -->
+    <div id="modal-overlay">
+      <div id="welcome-modal">
+        <div class="modal-flags">
+          <span class="modal-flag">🇯🇵</span>
+          <span class="modal-flag">🇫🇷</span>
+          <span class="modal-flag modal-flag--center">🌍</span>
+          <span class="modal-flag">🇺🇸</span>
+          <span class="modal-flag">🇧🇷</span>
+        </div>
+        <div id="modal-lottie"></div>
+        <h2 class="modal-title">Willkommen bei Currencity</h2>
+        <p class="modal-text">
+          Wähle ein Reiseziel auf der Karte und gib dein Budget ein.<br />
+          Sieh sofort, wie weit dein Geld im Ausland reicht.
+        </p>
+        <ol class="modal-steps">
+          <li>Budget eingeben <span class="step-hint">(unten links)</span></li>
+          <li>Land auf der Karte anklicken</li>
+          <li>Kaufkraft &amp; lokale Preise entdecken</li>
+        </ol>
+        <button class="modal-cta" id="modal-cta-btn">Karte erkunden →</button>
+        <p class="modal-disclaimer">
+          Wechselkurse werden live abgerufen · Preise basieren auf
+          Durchschnittswerten 2026
+        </p>
+      </div>
+    </div>
+
+    <!-- ── SLIDE PANEL ── -->
+    <div id="panel">
+      <button class="panel-close-btn" id="panel-close-btn">✕</button>
+
+      <!-- Hero -->
+      <div class="panel-hero">
+        <div class="panel-hero-inner">
+          <div class="panel-flag" id="panel-flag"></div>
+          <div class="panel-hero-text">
+            <div class="panel-country" id="panel-country"></div>
+            <div class="panel-meta" id="panel-meta"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <!-- Budget-Hero + LCI nebeneinander -->
+        <div class="hero-row">
+          <div class="budget-hero">
+            <div class="budget-hero-label" id="budget-hero-label">
+              DEIN BUDGET IN —
+            </div>
+            <div class="budget-hero-amount" id="panel-converted">—</div>
+            <div class="budget-hero-rate" id="panel-rate"></div>
+            <div class="budget-live-dot">
+              <span class="live-dot"></span>
+              <span class="live-text">Live</span>
+            </div>
+          </div>
+          <div class="lci-block" id="lci-block" style="display: none">
+            <div class="lci-label">LCI</div>
+            <div class="lci-zahl" id="lci-zahl">—</div>
+            <div class="lci-sub" id="lci-sub">—</div>
+          </div>
+        </div>
+
+        <!-- Ladeindikator -->
+        <div class="loading-state" id="panel-loading" style="display: none">
+          <lottie-player
+            src="https://assets10.lottiefiles.com/packages/lf20_szlepvdh.json"
+            background="transparent"
+            speed="1"
+            style="width: 80px; height: 40px; pointer-events: none"
+            loop
+            autoplay
+          >
+          </lottie-player>
+        </div>
+        <div class="error-state" id="panel-error"></div>
+
+        <div class="panel-divider"></div>
+
+        <!-- Local Craving Index Header -->
+        <div class="craving-header">
+          <div class="craving-title">Local Craving Index</div>
+          <div class="craving-subtitle" id="craving-subtitle">
+            Reiseziel vs. Heimatland
+          </div>
+        </div>
+
+        <!-- Tier-Switcher: Premium | Classic (Standard/Richtwert) | Budget -->
+        <div class="tier-switcher">
+          <button class="tier-btn" data-tier="premium">💎 Premium</button>
+          <button
+            class="tier-btn tier-btn--active tier-btn--classic"
+            data-tier="classic"
+          >
+            🍽 Classic <span class="tier-btn-star">★</span>
+          </button>
+          <button class="tier-btn" data-tier="budget">🪙 Budget</button>
+        </div>
+
+        <!-- Einzelne Dish-Karte (wird per JS gewechselt) -->
+        <div id="dish-card-wrap"></div>
+
+        <!-- Fazit -->
+        <div class="fazit-box" id="fazit-box" style="display: none">
+          <span class="fazit-icon">📊</span>
+          <span class="fazit-text" id="fazit-text"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── WELTKARTE ── -->
+    <div id="map-wrap"></div>
+
+    <!-- ── BUDGET BAR ── -->
+    <div id="budget-bar">
+      <div id="currency-picker-wrap">
+        <button id="budget-bar-trigger" title="Heimwährung ändern">
+          <span class="home-flag" id="home-flag">🌍</span>
+          <span class="currency-label" id="home-currency-label">CHF</span>
+          <svg
+            class="cp-chevron"
+            width="10"
+            height="10"
+            viewBox="0 0 10 10"
+            fill="none"
+          >
+            <path
+              d="M2 3.5L5 6.5L8 3.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <div class="cp-dropdown">
+          <div class="cp-search-wrap">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <circle
+                cx="6.5"
+                cy="6.5"
+                r="5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M10.5 10.5L14 14"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <input
+              id="currency-search"
+              type="text"
+              placeholder="Währung suchen…"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div id="currency-list"></div>
+        </div>
+      </div>
+      <div class="bar-divider"></div>
+      <input
+        type="number"
+        id="budget-input"
+        placeholder="500"
+        min="1"
+        step="100"
+        value="500"
+      />
+    </div>
+
+    <button id="shuffle-btn" title="Überrasche mich">
+      🎲 <span>Überrasche mich</span>
+    </button>
+
+    <div id="zoom-hint">Scrollen zum Zoomen · Ziehen zum Verschieben</div>
+    <div id="tooltip"></div>
+
+    <script src="app.js"></script>
   </body>
 </html>

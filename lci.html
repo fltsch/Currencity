@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currencity — Local Craving Index</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="lci.css" />
+</head>
+<body class="lci-seite">
+
+  <nav id="topnav">
+    <div class="nav-logo">Curren<span>city</span></div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link" id="nav-karte">Karte</a>
+      <a href="lci.html"   class="nav-link active" id="nav-lci">LCI</a>
+      <a href="preise.html" class="nav-link" id="nav-preise">Alle Preise</a>
+    </div>
+    <div class="nav-spacer"></div>
+  </nav>
+
+  <main class="lci-main">
+
+    <!-- Hero -->
+    <div class="lci-hero">
+      <div class="lci-hero-badge">Index</div>
+      <h1 class="lci-hero-title">Local Craving Index</h1>
+      <p class="lci-hero-sub">
+        Eine Zahl, die zeigt wie weit dein Budget im Reiseziel reicht —
+        im Vergleich zur Schweiz.
+      </p>
+    </div>
+
+    <!-- Was ist der LCI? -->
+    <section class="lci-section">
+      <h2 class="lci-section-title">Was ist der LCI?</h2>
+      <p class="lci-text">
+        Der <strong>Local Craving Index</strong> beantwortet eine einfache Frage:
+        <em>Wie viele Classic-Gerichte bekomme ich in meinem Reiseland für das gleiche Budget
+        wie zu Hause in der Schweiz?</em>
+      </p>
+      <p class="lci-text">
+        Wechselkurse allein sagen wenig. 1 CHF = 1500 JPY klingt viel — aber was kannst du damit
+        kaufen? Der LCI übersetzt rohe Zahlen in konkrete Kaufkraft, basierend auf einem
+        echten Alltagsgericht.
+      </p>
+    </section>
+
+    <!-- Formel -->
+    <section class="lci-section">
+      <h2 class="lci-section-title">Wie wird er berechnet?</h2>
+      <div class="lci-formel-wrap">
+        <div class="lci-formel">
+          <div class="lci-formel-zeile">
+            <span class="lci-formel-num">Portionen Classic-Gericht im Reiseland</span>
+            <span class="lci-formel-line"></span>
+            <span class="lci-formel-den">Portionen Classic-Gericht in der Schweiz (Rösti)</span>
+          </div>
+          <div class="lci-formel-eq">= LCI</div>
+        </div>
+      </div>
+      <p class="lci-text">
+        Wir dividieren jeweils: <strong>Budget ÷ Preis des Classic-Gerichts.</strong>
+        Das ergibt die Anzahl Mahlzeiten die du dir leisten könntest.
+        Das Verhältnis der beiden Werte ist der LCI.
+      </p>
+
+      <!-- Beispiel -->
+      <div class="lci-beispiel">
+        <div class="lci-beispiel-titel">Beispiel: Japan mit CHF 500 Budget</div>
+        <div class="lci-beispiel-schritte">
+          <div class="lci-schritt">
+            <div class="lci-schritt-nr">1</div>
+            <div class="lci-schritt-text">
+              <strong>Schweiz:</strong> Rösti kostet CHF 18.50<br>
+              <span class="lci-schritt-rechnung">500 ÷ 18.50 = <strong>27 Portionen</strong></span>
+            </div>
+          </div>
+          <div class="lci-schritt">
+            <div class="lci-schritt-nr">2</div>
+            <div class="lci-schritt-text">
+              <strong>Japan:</strong> Ramen Bowl entspricht CHF 9.–<br>
+              <span class="lci-schritt-rechnung">500 ÷ 9 = <strong>55 Portionen</strong></span>
+            </div>
+          </div>
+          <div class="lci-schritt lci-schritt--result">
+            <div class="lci-schritt-nr lci-schritt-nr--result">LCI</div>
+            <div class="lci-schritt-text">
+              55 ÷ 27 = <strong class="lci-result-zahl">2.0×</strong><br>
+              <span class="lci-schritt-rechnung">Dein Budget reicht in Japan doppelt so weit wie zu Hause</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lci-hinweis">
+        <span class="lci-hinweis-icon">ℹ️</span>
+        <span>Basis ist immer das <strong>Classic-Gericht</strong> — das repräsentativste Alltagsgericht.
+        Premium und Budget schwanken stärker und verzerren den Vergleich.</span>
+      </div>
+    </section>
+
+    <!-- Skala -->
+    <section class="lci-section">
+      <h2 class="lci-section-title">Was bedeuten die Werte?</h2>
+      <p class="lci-text" style="margin-bottom: 20px;">
+        Der LCI-Wert ist ein Multiplikator. Ein Wert von 1.0 bedeutet identische Kaufkraft
+        wie in der Schweiz. Alles darüber ist günstiger, alles darunter teurer.
+      </p>
+
+      <div class="lci-skala">
+
+        <div class="lci-skala-item lci-skala-item--top">
+          <div class="lci-skala-wert" style="color: var(--forest);">3.0×+</div>
+          <div class="lci-skala-bar" style="background: var(--forest); width: 100%;"></div>
+          <div class="lci-skala-label">
+            <strong>Extrem günstig</strong>
+            <span>Dein Geld reicht mehr als dreimal so weit wie zu Hause. Klassische Backpacker-Destinationen wie Vietnam oder Madagaskar.</span>
+          </div>
+        </div>
+
+        <div class="lci-skala-item">
+          <div class="lci-skala-wert" style="color: #52c97a;">2.0–2.9×</div>
+          <div class="lci-skala-bar" style="background: #52c97a; width: 78%;"></div>
+          <div class="lci-skala-label">
+            <strong>Sehr günstig</strong>
+            <span>Dein Budget hat deutlich mehr Wert. Grosse Ersparnisse beim Essen möglich. Typisch für Südostasien, Nordafrika.</span>
+          </div>
+        </div>
+
+        <div class="lci-skala-item">
+          <div class="lci-skala-wert" style="color: #8fd9a8;">1.3–1.9×</div>
+          <div class="lci-skala-bar" style="background: #8fd9a8; width: 56%;"></div>
+          <div class="lci-skala-label">
+            <strong>Günstiger als die Schweiz</strong>
+            <span>Du bekommst merklich mehr für dein Geld. Gut für Budgetplanung. Typisch für Osteuropa, Türkei, Lateinamerika.</span>
+          </div>
+        </div>
+
+        <div class="lci-skala-item lci-skala-item--mitte">
+          <div class="lci-skala-wert" style="color: var(--citrus);">0.85–1.29×</div>
+          <div class="lci-skala-bar" style="background: var(--citrus); width: 38%;"></div>
+          <div class="lci-skala-label">
+            <strong>Ähnlich wie die Schweiz</strong>
+            <span>Kaufkraft vergleichbar mit zu Hause. Kein grosser Vor- oder Nachteil beim Essen. Typisch für Westeuropa, Japan, Kanada.</span>
+          </div>
+        </div>
+
+        <div class="lci-skala-item">
+          <div class="lci-skala-wert" style="color: #e8a87c;">0.6–0.84×</div>
+          <div class="lci-skala-bar" style="background: #e8a87c; width: 22%;"></div>
+          <div class="lci-skala-label">
+            <strong>Teurer als die Schweiz</strong>
+            <span>Du bekommst weniger für dein Geld als zu Hause. Genauer planen. Typisch für Skandinavien, England, Australien.</span>
+          </div>
+        </div>
+
+        <div class="lci-skala-item lci-skala-item--bottom">
+          <div class="lci-skala-wert" style="color: #e57373;">0–0.59×</div>
+          <div class="lci-skala-bar" style="background: #e57373; width: 10%;"></div>
+          <div class="lci-skala-label">
+            <strong>Deutlich teurer</strong>
+            <span>Signifikant höhere Lebenshaltungskosten als in der Schweiz. Selten — Island und einige Kleinststaaten.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Referenz Schweiz -->
+    <section class="lci-section">
+      <h2 class="lci-section-title">Warum die Schweiz als Referenz?</h2>
+      <p class="lci-text">
+        Currencity wurde für Reisende aus der Schweiz entwickelt.
+        Der LCI verwendet die Schweiz als Nullpunkt — LCI 1.0 entspricht
+        immer der Schweizer Kaufkraft.
+      </p>
+      <div class="lci-referenz-box">
+        <div class="lci-referenz-item">
+          <div class="lci-referenz-emoji">🥘</div>
+          <div>
+            <div class="lci-referenz-name">Rösti (Classic-Referenz)</div>
+            <div class="lci-referenz-preis">CHF 18.50 — Restaurant-Durchschnitt Schweiz 2026</div>
+          </div>
+        </div>
+      </div>
+      <p class="lci-text" style="margin-top: 12px;">
+        Die Preise werden manuell gepflegt und periodisch aktualisiert.
+        Wechselkurse werden live von der apip.cc API abgerufen.
+      </p>
+    </section>
+
+    <!-- Einschränkungen -->
+    <section class="lci-section">
+      <h2 class="lci-section-title">Einschränkungen &amp; Transparenz</h2>
+      <div class="lci-limits">
+        <div class="lci-limit-item">
+          <span class="lci-limit-icon">⚠️</span>
+          <div>
+            <strong>Durchschnittswerte</strong><br>
+            Preise variieren stark je nach Stadt, Quartier und Restaurant.
+            Der LCI zeigt einen Richtwert, keine Garantie.
+          </div>
+        </div>
+        <div class="lci-limit-item">
+          <span class="lci-limit-icon">🍽</span>
+          <div>
+            <strong>Classic-Tier als Massstab</strong><br>
+            Nur das mittlere Gericht fliesst in den LCI ein.
+            Premium und Budget können stark abweichen — erkennbar in den Balken.
+          </div>
+        </div>
+        <div class="lci-limit-item">
+          <span class="lci-limit-icon">💱</span>
+          <div>
+            <strong>Schwankende Wechselkurse</strong><br>
+            Der LCI ändert sich täglich mit dem Wechselkurs.
+            Die angezeigte Zahl ist immer live berechnet.
+          </div>
+        </div>
+        <div class="lci-limit-item">
+          <span class="lci-limit-icon">📍</span>
+          <div>
+            <strong>Nur Essen, nicht alles</strong><br>
+            Der LCI misst Kaufkraft für Essen.
+            Unterkunft, Transport und Aktivitäten sind nicht einbezogen.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="lci-cta-wrap">
+      <a href="index.html" class="lci-cta-btn">→ Länder vergleichen</a>
+      <a href="preise.html" class="lci-cta-btn lci-cta-btn--secondary">→ Alle Preise & LCI-Werte</a>
+    </div>
+
+  </main>
+
+  <footer class="preise-footer">
+    <div class="footer-logo">Curren<span>city</span></div>
+    <div class="footer-text">
+      Wechselkurse: apip.cc API &nbsp;·&nbsp;
+      Preise: Durchschnittswerte, aktualisiert Mai 2026 &nbsp;·&nbsp;
+      Semesterprojekt FHGR MMP FS 2026
+    </div>
+    <div class="footer-copy">© 2026 Fabio Flütsch · Alle Angaben ohne Gewähr</div>
+  </footer>
+
+</body>
+</html>

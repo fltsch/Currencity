@@ -1,0 +1,139 @@
+/* ─────────────────────────────────────────────────────────
+   CURRENCITY — preise.css
+───────────────────────────────────────────────────────── */
+
+html:has(body.preise-seite) { overflow: auto; height: auto; }
+body.preise-seite { overflow-x: hidden; overflow-y: auto; height: auto; min-height: 100vh; }
+
+.preise-main {
+  max-width: 1280px; margin: 0 auto;
+  padding: calc(var(--nav-h) + 48px) 40px 48px;
+  display: flex; flex-direction: column; gap: 32px;
+}
+
+/* ── HERO ── */
+.preise-hero { display: flex; flex-direction: column; gap: 14px; }
+.preise-title { font-size: 28px; font-weight: 700; color: var(--cream); letter-spacing: -0.6px; }
+.preise-subtitle { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* Info-Band */
+.preise-info-band {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  background: var(--navy-elev); border: 1px solid var(--border2);
+  border-radius: 12px; padding: 10px 16px;
+  font-size: 12px; font-family: 'DM Mono', monospace; color: var(--muted);
+}
+.info-item { display: flex; align-items: center; gap: 6px; }
+.info-wert { color: var(--forest); font-weight: 500; }
+.info-trenner { color: var(--subtle); flex-shrink: 0; }
+
+/* ── TABELLE ── */
+.preise-table-wrap {
+  background: var(--navy-surf); border: 1px solid var(--border2);
+  border-radius: 16px; overflow: hidden;
+}
+
+/* ── SEARCHBAR ── */
+.preise-search-wrap {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  color: var(--subtle);
+}
+#land-suche {
+  background: transparent; border: none; outline: none;
+  font-family: 'DM Sans', sans-serif; font-size: 14px;
+  color: var(--cream); flex: 1;
+  caret-color: var(--forest);
+}
+#land-suche::placeholder { color: var(--subtle); }
+
+.preise-count {
+  font-size: 11px; font-family: 'DM Mono', monospace;
+  color: var(--subtle); flex-shrink: 0;
+}
+
+/* ── TABLE HEADER ── */
+.preise-table-header {
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr 1fr 80px 140px 120px;
+  padding: 12px 20px;
+  background: var(--navy-elev); border-bottom: 1px solid var(--border);
+}
+.col-land, .col-tier, .col-kurs, .col-aktion {
+  font-size: 11px; font-weight: 600;
+  font-family: 'DM Mono', monospace; color: var(--muted); letter-spacing: 0.5px;
+}
+.sortierbar { cursor: pointer; user-select: none; display: flex; align-items: center; gap: 5px; transition: color 0.18s; }
+.sortierbar:hover { color: var(--cream); }
+.sortierbar.aktiv { color: var(--forest); }
+.sort-icon { font-size: 10px; opacity: 0.6; }
+.sortierbar.aktiv .sort-icon { opacity: 1; }
+
+/* ── ZEILEN ── */
+.preise-zeile {
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr 1fr 80px 140px 120px;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  align-items: center; transition: background 0.15s;
+}
+.preise-zeile:last-child { border-bottom: none; }
+.preise-zeile:hover { background: rgba(255,255,255,0.02); }
+.preise-zeile.aktiv { background: rgba(46,205,113,0.05); border-bottom: 1px solid rgba(46,205,113,0.15); }
+
+.zelle-land { display: flex; align-items: center; gap: 10px; }
+.zelle-flag { font-size: 22px; line-height: 1; }
+.zelle-name { font-size: 14px; font-weight: 600; color: var(--cream); }
+.zelle-waehrung { font-size: 11px; color: var(--subtle); font-family: 'DM Mono', monospace; }
+
+.zelle-gericht { display: flex; flex-direction: column; gap: 2px; }
+.gericht-name { font-size: 12px; font-weight: 500; color: var(--cream); }
+.gericht-preise { display: flex; flex-direction: column; gap: 1px; margin-top: 3px; }
+.gericht-preis-lokal { font-size: 12px; font-family: 'DM Mono', monospace; font-weight: 500; color: var(--forest); }
+.gericht-preis-chf   { font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); }
+
+.zelle-kurs { font-size: 11px; font-weight: 500; font-family: 'DM Mono', monospace; color: var(--citrus); display: flex; align-items: center; gap: 6px; }
+.zelle-aktion { display: flex; }
+
+.btn-melden { background: transparent; border: 1px solid var(--border2); border-radius: 8px; padding: 6px 12px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); cursor: pointer; transition: background 0.18s, color 0.18s, border-color 0.18s; }
+.btn-melden:hover { background: var(--navy-elev); color: var(--cream); border-color: var(--forest); }
+.btn-melden.aktiv { background: var(--forest-dim); color: var(--forest); border-color: rgba(46,205,113,0.4); }
+
+/* Kein Ergebnis */
+.preise-leer {
+  padding: 32px 20px; text-align: center;
+  font-size: 14px; color: var(--muted); font-style: italic;
+}
+
+/* ── LCI SPALTE ── */
+.col-lci { font-size: 11px; font-weight: 600; font-family: "DM Mono", monospace; color: var(--muted); letter-spacing: 0.5px; }
+.zelle-lci { display: flex; flex-direction: column; gap: 2px; }
+.lci-wert { font-size: 14px; font-weight: 700; font-family: "DM Mono", monospace; }
+.lci-tag  { font-size: 9px; font-family: "DM Mono", monospace; opacity: 0.8; }
+
+/* ── FORMULAR ── */
+.preise-formular { background: var(--navy-surf); border: 1px solid rgba(46,205,113,0.25); border-radius: 16px; overflow: hidden; }
+.formular-inner { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.formular-titel { font-size: 14px; font-weight: 600; color: var(--cream); }
+.formular-felder { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 12px; }
+.formular-gruppe { display: flex; flex-direction: column; gap: 6px; }
+.formular-label { font-size: 9px; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.formular-input { background: var(--navy-elev); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--cream); outline: none; width: 100%; transition: border-color 0.18s; }
+.formular-input:focus { border-color: var(--forest); }
+.formular-input::placeholder { color: var(--subtle); }
+select.formular-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235C6E7E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+.formular-aktionen { display: flex; gap: 10px; }
+.formular-senden { background: var(--forest); color: var(--midnight); border: none; border-radius: 10px; padding: 12px 20px; font-size: 13px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+.formular-senden:hover { background: #35e07d; transform: translateY(-1px); }
+.formular-abbrechen { background: transparent; color: var(--muted); border: 1px solid var(--border2); border-radius: 10px; padding: 12px 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.18s, color 0.18s; }
+.formular-abbrechen:hover { background: var(--navy-elev); color: var(--cream); }
+.formular-hinweis { font-size: 11px; color: var(--subtle); font-family: 'DM Mono', monospace; }
+
+/* ── FOOTER ── */
+.preise-footer { max-width: 1280px; margin: 0 auto; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--border); }
+.footer-logo { font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+.footer-logo span { color: var(--forest); }
+.footer-text { font-size: 12px; color: var(--subtle); font-family: 'DM Mono', monospace; }
+.footer-copy { font-size: 11px; color: var(--subtle); opacity: 0.6; }
+.footer-back { display: inline-flex; align-items: center; margin-top: 8px; align-self: flex-end; background: var(--forest-dim); border: 1px solid rgba(46,205,113,0.2); border-radius: 10px; padding: 8px 16px; font-size: 13px; font-weight: 500; color: var(--forest); text-decoration: none; transition: background 0.18s; }
+.footer-back:hover { background: rgba(46,205,113,0.2); }

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currencity — Preisindex</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="preise.css" />
+</head>
+<body class="preise-seite">
+
+  <nav id="topnav">
+    <div class="nav-logo">Curren<span>city</span></div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link" id="nav-karte">Karte</a>
+      <a href="lci.html" class="nav-link" id="nav-lci">LCI</a>
+      <a href="preise.html" class="nav-link active" id="nav-preise">Alle Preise</a>
+    </div>
+    <div class="nav-spacer"></div>
+  </nav>
+
+  <main class="preise-main">
+
+    <div class="preise-hero">
+      <h1 class="preise-title">Preisindex</h1>
+      <p class="preise-subtitle">
+        Alle Gerichte und Preise die Currencity für den Local Craving Index verwendet.<br>
+        Preise in Lokalwährung und CHF-Referenzwert. Basieren auf Durchschnittswerten 2026.
+      </p>
+      <!-- Info-Band -->
+      <div class="preise-info-band">
+        <div class="info-item">
+          <span class="live-dot"></span>
+          <span>Wechselkurse: apip.cc API</span>
+          <span class="info-wert" id="api-abgerufen">wird geladen…</span>
+        </div>
+        <div class="info-trenner">·</div>
+        <div class="info-item">
+          <span>API zuletzt aktualisiert:</span>
+          <span class="info-wert" id="api-update">wird geladen…</span>
+        </div>
+        <div class="info-trenner">·</div>
+        <div class="info-item">
+          <span>Preis-Aktualisierung:</span>
+          <span class="info-wert">Mai 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suche + Tabelle -->
+    <div class="preise-table-wrap">
+
+      <!-- Searchbar -->
+      <div class="preise-search-wrap">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="land-suche" placeholder="Land suchen…" autocomplete="off" spellcheck="false" />
+        <span class="preise-count" id="preise-count"></span>
+      </div>
+
+      <!-- Tabellen-Header -->
+      <div class="preise-table-header">
+        <div class="col-land sortierbar aktiv" data-sort="name" data-dir="asc">
+          Land <span class="sort-icon">↑</span>
+        </div>
+        <div class="col-tier sortierbar" data-sort="premium" data-dir="asc">
+          💎 Premium <span class="sort-icon">↕</span>
+        </div>
+        <div class="col-tier sortierbar" data-sort="classic" data-dir="asc">
+          🍽 Classic <span class="sort-icon">↕</span>
+        </div>
+        <div class="col-tier sortierbar" data-sort="budget" data-dir="asc">
+          🪙 Budget <span class="sort-icon">↕</span>
+        </div>
+        <div class="col-lci sortierbar" data-sort="lci" data-dir="desc">
+          LCI <span class="sort-icon">↕</span>
+        </div>
+        <div class="col-kurs">Wechselkurs</div>
+        <div class="col-aktion">Preis melden</div>
+      </div>
+
+      <div id="preise-liste"></div>
+
+      <!-- Kein Ergebnis -->
+      <div class="preise-leer" id="preise-leer" style="display:none">
+        Kein Land gefunden für "<span id="preise-leer-term"></span>"
+      </div>
+    </div>
+
+    <!-- Inline-Formular -->
+    <div class="preise-formular" id="preise-formular" style="display:none">
+      <div class="formular-inner">
+        <div class="formular-titel" id="formular-titel">Preiskorrektur vorschlagen</div>
+        <div class="formular-felder">
+          <div class="formular-gruppe">
+            <label class="formular-label">GERICHT</label>
+            <select class="formular-input" id="formular-gericht">
+              <option value="">Gericht wählen…</option>
+            </select>
+          </div>
+          <div class="formular-gruppe">
+            <label class="formular-label">NEUER PREIS (CHF)</label>
+            <input class="formular-input" type="number" id="formular-preis"
+              placeholder="z.B. 52.00" min="0" step="0.5" />
+          </div>
+          <div class="formular-gruppe">
+            <label class="formular-label">BEGRÜNDUNG (OPTIONAL)</label>
+            <input class="formular-input" type="text" id="formular-begruendung"
+              placeholder="z.B. Preis gestiegen seit 2024" />
+          </div>
+        </div>
+        <div class="formular-aktionen">
+          <button class="formular-senden" id="formular-senden">✉ Per Email senden</button>
+          <button class="formular-abbrechen" id="formular-abbrechen">Abbrechen</button>
+        </div>
+        <div class="formular-hinweis">Öffnet deinen Email-Client mit vorausgefülltem Inhalt.</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="preise-footer">
+    <div class="footer-logo">Curren<span>city</span></div>
+    <div class="footer-text">
+      Wechselkurse: apip.cc API &nbsp;·&nbsp;
+      Preise: Durchschnittswerte, aktualisiert Mai 2026 &nbsp;·&nbsp;
+      Semesterprojekt FHGR MMP FS 2026
+    </div>
+    <div class="footer-copy">© 2026 Fabio Flütsch · Alle Angaben ohne Gewähr</div>
+    <a href="index.html" class="footer-back">← Zurück zur Karte</a>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="preise.js"></script>
+</body>
+</html>
