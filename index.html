@@ -2,23 +2,73 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Currencity</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Currencity - Local Craving Index</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>"
+    />
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </head>
-  <body>
+  <body class="karte-seite">
     <!-- ── NAVIGATION: Karte | LCI | Alle Preise ── -->
     <nav id="topnav">
-      <div class="nav-logo">Curren<span>city</span></div>
+      <div class="nav-logo">4<span>city</span></div>
       <div class="nav-links">
         <a href="#" class="nav-link active" id="nav-karte">Karte</a>
         <a href="lci.html" class="nav-link" id="nav-lci">LCI</a>
         <a href="preise.html" class="nav-link" id="nav-preise">Alle Preise</a>
       </div>
-      <div class="nav-spacer"></div>
+      <div class="nav-right">
+        <!-- ── FAVORITEN ── -->
+        <div id="fav-wrap">
+          <button id="fav-nav-btn" title="Favoriten">
+            <span id="fav-nav-icon">♡</span>
+            <span class="fav-nav-label">Favoriten</span>
+            <span id="fav-badge" style="display: none"></span>
+          </button>
+          <div id="fav-dropdown">
+            <div class="fav-dropdown-header">Gespeicherte Länder</div>
+            <div id="fav-liste"></div>
+          </div>
+        </div>
+        <div id="land-suche-wrap">
+          <button id="land-suche-btn" title="Land suchen">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <circle
+                cx="6.5"
+                cy="6.5"
+                r="5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M10.5 10.5L14 14"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Suchen</span>
+          </button>
+          <div id="land-suche-box">
+            <input
+              id="land-suche-input"
+              type="text"
+              placeholder="Land suchen…"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <div id="land-suche-liste"></div>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <!-- ── WELCOME MODAL ── -->
@@ -39,7 +89,7 @@
         </p>
         <ol class="modal-steps">
           <li>Budget eingeben <span class="step-hint">(unten links)</span></li>
-          <li>Land auf der Karte anklicken</li>
+          <li id="modal-step-tap">Land auf der Karte anklicken</li>
           <li>Kaufkraft &amp; lokale Preise entdecken</li>
         </ol>
         <button class="modal-cta" id="modal-cta-btn">Karte erkunden →</button>
@@ -47,11 +97,23 @@
           Wechselkurse werden live abgerufen · Preise basieren auf
           Durchschnittswerten 2026
         </p>
+        <!-- Lade-Animation — erscheint nach Klick auf "Karte erkunden" -->
+        <div id="modal-laden">
+          <lottie-player
+            src="lottie-laden.json"
+            background="transparent"
+            speed="1"
+            style="width:160px;height:160px;pointer-events:none;"
+            loop
+            autoplay>
+          </lottie-player>
+        </div>
       </div>
     </div>
 
     <!-- ── SLIDE PANEL ── -->
     <div id="panel">
+      <div class="panel-handle" aria-hidden="true"></div>
       <button class="panel-close-btn" id="panel-close-btn">✕</button>
 
       <!-- Hero -->
@@ -59,7 +121,16 @@
         <div class="panel-hero-inner">
           <div class="panel-flag" id="panel-flag"></div>
           <div class="panel-hero-text">
-            <div class="panel-country" id="panel-country"></div>
+            <div class="panel-country-row">
+              <div class="panel-country" id="panel-country"></div>
+              <button
+                class="panel-fav-btn"
+                id="panel-fav-btn"
+                title="Zu Favoriten hinzufügen"
+              >
+                ♡
+              </button>
+            </div>
             <div class="panel-meta" id="panel-meta"></div>
           </div>
         </div>
@@ -84,6 +155,14 @@
             <div class="lci-zahl" id="lci-zahl">—</div>
             <div class="lci-sub" id="lci-sub">—</div>
           </div>
+        </div>
+
+        <!-- Aktions-Buttons: Vergleichen + Teilen -->
+        <div class="panel-aktionen">
+          <button id="vergleich-btn" style="display: none">
+            ⚖️ Vergleichen
+          </button>
+          <button id="share-btn" style="display: none">🔗 Link teilen</button>
         </div>
 
         <!-- Ladeindikator -->
@@ -125,13 +204,46 @@
         <!-- Einzelne Dish-Karte (wird per JS gewechselt) -->
         <div id="dish-card-wrap"></div>
 
-        <!-- Fazit -->
-        <div class="fazit-box" id="fazit-box" style="display: none">
-          <span class="fazit-icon">📊</span>
-          <span class="fazit-text" id="fazit-text"></span>
+        <!-- Rückrechner: Zielwährung → Heimwährung -->
+        <div class="rueck-rechner" id="rueck-rechner" style="display: none">
+          <div class="rueck-header">
+            <span class="rueck-titel">Rückrechner</span>
+            <span class="rueck-sub" id="rueck-sub">Vor-Ort → Zuhause</span>
+          </div>
+          <div class="rueck-row">
+            <div class="rueck-input-gruppe">
+              <input type="text" id="rueck-input" placeholder="0" inputmode="decimal" autocomplete="off" />
+              <span class="rueck-waehrung" id="rueck-ziel-waehrung">—</span>
+            </div>
+            <div class="rueck-gleich">=</div>
+            <div class="rueck-output-gruppe">
+              <span class="rueck-ergebnis" id="rueck-ergebnis">—</span>
+              <span class="rueck-waehrung" id="rueck-heim-waehrung">—</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- ── VERGLEICH HINT ── -->
+    <div id="vergleich-hint" style="display: none">
+      <span>Klicke ein zweites Land zum Vergleichen</span>
+      <button id="vergleich-abbrechen">Abbrechen</button>
+    </div>
+
+    <!-- ── VERGLEICH OVERLAY ── -->
+    <div id="vergleich-overlay" style="display: none">
+      <div id="vergleich-overlay-header">
+        <div class="vgl-land-kopf" id="vgl-kopf-1"></div>
+        <div class="vgl-vs-mitte">VS</div>
+        <div class="vgl-land-kopf" id="vgl-kopf-2"></div>
+        <button id="vergleich-overlay-close">✕</button>
+      </div>
+      <div id="vergleich-overlay-body"></div>
+    </div>
+
+    <!-- ── KONTINENT FILTER ── -->
+    <div id="kontinent-filter"></div>
 
     <!-- ── WELTKARTE ── -->
     <div id="map-wrap"></div>
@@ -192,9 +304,17 @@
         id="budget-input"
         placeholder="500"
         min="1"
+        max="99999"
         step="100"
         value="500"
       />
+      <div class="bar-divider"></div>
+      <div id="budget-presets">
+        <button class="budget-preset" data-value="100">100</button>
+        <button class="budget-preset" data-value="500">500</button>
+        <button class="budget-preset" data-value="1000">1K</button>
+        <button class="budget-preset" data-value="2000">2K</button>
+      </div>
     </div>
 
     <button id="shuffle-btn" title="Überrasche mich">

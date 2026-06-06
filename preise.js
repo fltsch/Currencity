@@ -22,12 +22,15 @@ function formatiere_lokal(preis, waehrung) {
 
 function sortierwert(code, spalte) {
   const land = COUNTRIES[code];
-  if (spalte === 'name')    return land.name.toLowerCase();
-  if (spalte === 'premium') return land.dishes.premium.dishPriceCHF;
-  if (spalte === 'classic') return land.dishes.classic.dishPriceCHF;
-  if (spalte === 'budget')  return land.dishes.budget.dishPriceCHF;
-  if (spalte === 'lci') {
-    return berechne_lci_tabelle(code);
+  if (spalte === 'name') return land.name.toLowerCase();
+  if (spalte === 'lci')  return berechne_lci_tabelle(code);
+  // Für Tier-Spalten: live CHF-Äquivalent verwenden wenn Kurse vorhanden
+  if (spalte === 'premium' || spalte === 'classic' || spalte === 'budget') {
+    const dish = land.dishes[spalte];
+    if (aktuelle_kurse && aktuelle_kurse[land.currency] && aktuelle_kurse['CHF']) {
+      return (dish.dishPrice / aktuelle_kurse[land.currency]) * aktuelle_kurse['CHF'];
+    }
+    return dish.dishPriceCHF; // Fallback auf statischen Wert
   }
   return 0;
 }
@@ -119,7 +122,7 @@ function lci_html(code) {
   let label = '';
   if (lci >= 1.3)      { farbe = 'var(--forest)';  label = 'günstiger'; }
   else if (lci <= 0.77){ farbe = '#e57373';         label = 'teurer'; }
-  else                 { farbe = 'var(--citrus)';   label = 'ähnlich CH'; }
+  else                 { farbe = 'var(--citrus)';   label = 'ähnlich'; }
   return `<div class="zelle-lci">
     <div class="lci-wert" style="color:${farbe}">${lci.toFixed(1)}×</div>
     <div class="lci-tag" style="color:${farbe}">${label}</div>
@@ -166,12 +169,22 @@ function render_zeilen() {
     }
 
     function gericht_html(dish) {
+      let chf_sub = '';
+      if (aktuelle_kurse && aktuelle_kurse[land.currency] && aktuelle_kurse['CHF']) {
+        const chf_live = (dish.dishPrice / aktuelle_kurse[land.currency]) * aktuelle_kurse['CHF'];
+        const chf_fmt  = chf_live < 10
+          ? chf_live.toFixed(2)
+          : chf_live.toFixed(1);
+        chf_sub = `<span class="gericht-preis-chf">≈ CHF ${chf_fmt}</span>`;
+      } else if (dish.dishPriceCHF) {
+        chf_sub = `<span class="gericht-preis-chf">CHF ${dish.dishPriceCHF}</span>`;
+      }
       return `
         <div class="zelle-gericht">
           <div class="gericht-name">${dish.emoji} ${dish.name}</div>
           <div class="gericht-preise">
             <span class="gericht-preis-lokal">${formatiere_lokal(dish.dishPrice, land.currency)}</span>
-            <span class="gericht-preis-chf">CHF ${dish.dishPriceCHF}</span>
+            ${chf_sub}
           </div>
         </div>
       `;
@@ -269,14 +282,23 @@ function toggle_formular(code, button) {
   const dropdown = document.getElementById('formular-gericht');
   dropdown.innerHTML = '<option value="">Gericht wählen…</option>';
   [
-    { wert: 'premium', label: `💎 Premium — ${land.dishes.premium.name} (${formatiere_lokal(land.dishes.premium.dishPrice, land.currency)} / CHF ${land.dishes.premium.dishPriceCHF})` },
-    { wert: 'classic', label: `🍽 Classic — ${land.dishes.classic.name} (${formatiere_lokal(land.dishes.classic.dishPrice, land.currency)} / CHF ${land.dishes.classic.dishPriceCHF})` },
-    { wert: 'budget',  label: `🪙 Budget — ${land.dishes.budget.name} (${formatiere_lokal(land.dishes.budget.dishPrice, land.currency)} / CHF ${land.dishes.budget.dishPriceCHF})` }
+    { wert: 'premium', label: `💎 Premium — ${land.dishes.premium.name} (aktuell: ${formatiere_lokal(land.dishes.premium.dishPrice, land.currency)})` },
+    { wert: 'classic', label: `🍽 Classic — ${land.dishes.classic.name} (aktuell: ${formatiere_lokal(land.dishes.classic.dishPrice, land.currency)})` },
+    { wert: 'budget',  label: `🪙 Budget — ${land.dishes.budget.name} (aktuell: ${formatiere_lokal(land.dishes.budget.dishPrice, land.currency)})` }
   ].forEach(function(g) {
     const opt = document.createElement('option');
     opt.value = g.wert; opt.textContent = g.label;
     dropdown.appendChild(opt);
   });
+  // Label und Placeholder auf Lokalwährung setzen
+  document.getElementById('formular-preis-label').textContent = `NEUER PREIS (${land.currency})`;
+  document.getElementById('formular-preis').placeholder = `z.B. ${land.dishes.classic.dishPrice}`;
+  document.getElementById('formular-preis').value = '';
+  // Placeholder beim Wechsel des Gerichts aktualisieren
+  dropdown.onchange = function() {
+    const g = this.value ? land.dishes[this.value] : null;
+    document.getElementById('formular-preis').placeholder = g ? `z.B. ${g.dishPrice}` : 'Betrag…';
+  };
   if (zeile) {
     zeile.after(formular);
     formular.style.display = 'block';
@@ -313,8 +335,7 @@ function sende_email() {
     `Land: ${land.name} (${formular_land_code})`,
     `Gericht: ${gericht.name} (${gericht_wert})`,
     `Aktueller Lokalpreis: ${formatiere_lokal(gericht.dishPrice, land.currency)}`,
-    `Aktueller CHF-Referenzpreis: CHF ${gericht.dishPriceCHF}`,
-    `Vorgeschlagener neuer CHF-Preis: CHF ${neuer_preis}`,
+    `Vorgeschlagener neuer Lokalpreis: ${formatiere_lokal(parseFloat(neuer_preis), land.currency)}`,
     begruendung ? `Begründung: ${begruendung}` : '',
     '', '---', 'Gesendet via Currencity Preisindex'
   ].filter(function(z) { return z !== undefined; }).join('\n');
