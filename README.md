@@ -104,12 +104,32 @@ Referenz-Heimgericht: Rösti, CHF 18.50
 
 ---
 
-## KI-Unterstützung
+## Reflexion
 
-Dieses Projekt wurde mit Unterstützung von Claude (Anthropic) als KI-Coding-Assistent entwickelt.
-Die KI wurde eingesetzt für: Code-Debugging, CSS-Problemlösungen und JavaScript-Implementierungen.
-Konzept, Design, Datenrecherche (Länder & Preise) und alle inhaltlichen Entscheidungen
-stammen vom Autor.
+### Projektidee und Entstehung
+
+Die Grundidee entstand aus einer persönlichen Frage: *Wie weit reicht mein Budget wirklich, wenn ich ins Ausland reise?* Wechselkurse allein beantworten das nicht — entscheidend ist, was man vor Ort tatsächlich kaufen kann. Daraus entstand das Konzept des **Local Craving Index (LCI)**: eine einzige Zahl, die Kaufkraft konkret und verständlich macht — gemessen an einem lokalen Alltagsgericht.
+
+### Entwicklungsprozess
+
+Der Einstieg war technisch herausfordernd. D3.js und TopoJSON waren neu für mich, und eine interaktive Weltkarte mit Zoom, Pan, Klick- und Touch-Unterstützung zu bauen hat deutlich mehr Zeit gebraucht als erwartet. Besonders iOS Safari hat eigene Regeln: Touch-Events auf SVG-Elementen verhalten sich anders als auf HTML-Elementen, was zu einem eigenen Touch-Handler mit `AbortController` geführt hat — komplett unabhängig vom D3-Zoom.
+
+Die Datenarbeit war aufwändiger als gedacht. Für über 100 Länder mussten drei Gerichte pro Land recherchiert, bewertet und mit realistischen Lokalpreisen versehen werden. Dabei zeigte sich schnell, dass viele Annahmen zu Preisen korrigiert werden mussten — zum Beispiel, dass Pad Thai in Thailand deutlich günstiger ist als zunächst angenommen, oder dass Pad Thai in der App mit einem falschen Fallback-Preis hinterlegt war.
+
+Eine wichtige Erkenntnis beim Live-Test: Der LCI muss konsequent mit Live-Wechselkursen berechnet werden — andernfalls stimmt der Vergleich nicht. Die Formel wurde deshalb in allen drei JS-Dateien (`app.js`, `preise.js`, `lci.js`) identisch gehalten und auf denselben API-Endpunkt ausgerichtet.
+
+### Herausforderungen
+
+- **Touch auf Mobile**: Swipe-to-close für das Panel musste manuell implementiert werden; ein bestehender Bug beim Vergleichs-Overlay (Overlay verschwand beim Wischen nicht vollständig) wurde kurz vor der Abgabe noch behoben.
+- **Emoji-Konsistenz**: Bei der finalen Durchsicht wurden zahlreiche Gerichte mit unpassenden Emojis gefunden — ein Krokodil für ein Fischcurry aus Kambodscha, ein Hummer für Paella. 47 Emojis wurden korrigiert.
+- **Responsive Design**: Desktop und Mobile haben grundlegend unterschiedliche Layouts — das Panel ist auf Desktop ein Seitensheet, auf Mobile ein Bottom Sheet. Beide mussten unabhängig voneinander korrekt funktionieren.
+- **Abgabe-Readiness**: Kurz vor der Abgabe zeigte sich, dass der README-Link auf GitHub Pages zeigte (nicht aktiviert) statt auf Hostpoint. Kleinigkeiten wie diese fallen erst beim kritischen Schlussdurchgang auf.
+
+### KI-Unterstützung
+
+Dieses Projekt wurde mit Unterstützung von Claude (Anthropic) als KI-Coding-Assistent entwickelt. Die KI wurde eingesetzt für: Code-Debugging, CSS-Problemlösungen, JavaScript-Implementierungen sowie die finale Code-Review und Optimierung (u.a. Refactoring von `Intl.NumberFormat`-Instanzen auf Modulebene, Hoist von Konfigurationskonstanten).
+
+Konzept, Design, Datenrecherche (Länder, Gerichte & Preise) und alle inhaltlichen Entscheidungen stammen vom Autor. Die KI hat keine Inhalte erfunden — sie hat geholfen, Ideen umzusetzen und Fehler zu finden.
 
 ---
 
