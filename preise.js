@@ -16,8 +16,9 @@ let such_filter        = '';   // aktueller Suchbegriff
 // ─────────────────────────────────────────────────────────
 //  HILFSFUNKTIONEN
 // ─────────────────────────────────────────────────────────
+const FMT_LOKAL = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 2 });
 function formatiere_lokal(preis, waehrung) {
-  return new Intl.NumberFormat('de-CH', { maximumFractionDigits: 2 }).format(preis) + ' ' + waehrung;
+  return FMT_LOKAL.format(preis) + ' ' + waehrung;
 }
 
 function sortierwert(code, spalte) {

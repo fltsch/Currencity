@@ -841,7 +841,7 @@ const CURRENCY_LIST = [
   {code:'BDT',flag:'🇧🇩',label:'Bangladeschischer Taka'},
   {code:'KWD',flag:'🇰🇼',label:'Kuwaitischer Dinar'},
   {code:'OMR',flag:'🇴🇲',label:'Omanischer Rial'},
-  {code:'BHD',flag:'🇧🇭',label:'Bahraini Dinar'},
+  {code:'BHD',flag:'🇧🇭',label:'Bahrainischer Dinar'},
   {code:'IQD',flag:'🇮🇶',label:'Irakischer Dinar'},
   {code:'AZN',flag:'🇦🇿',label:'Aserbaidschanischer Manat'},
   {code:'AMD',flag:'🇦🇲',label:'Armenischer Dram'},
@@ -862,6 +862,31 @@ const CURRENCY_LIST = [
   {code:'MKD',flag:'🇲🇰',label:'Nordmazedonischer Denar'},
   {code:'BAM',flag:'🇧🇦',label:'Bosnisch-Herzegowinische Mark'}
 ];
+
+// ── GLOBALE FORMATTER (einmalig erstellt, überall wiederverwendet) ──
+const FMT_0    = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 });
+const FMT_1    = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 1 });
+const FMT_2    = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 2 });
+const FMT_2FIX = new Intl.NumberFormat('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+// ── MODUL-KONSTANTEN ──
+const TIER_BADGES = {
+  premium: { label: '💎 Premium',            klasse: 'tier-badge--premium' },
+  classic: { label: '🍽 Classic · Richtwert', klasse: 'tier-badge--classic' },
+  budget:  { label: '🪙 Budget',              klasse: 'tier-badge--budget'  }
+};
+
+const VGL_TIERS = [
+  { key: 'premium', emoji: '💎', label: 'Premium' },
+  { key: 'classic', emoji: '🍽', label: 'Classic' },
+  { key: 'budget',  emoji: '🪙', label: 'Budget'  }
+];
+
+function lci_label(lci) {
+  if (lci >= 1.3)  return '<span style="color:var(--forest)">günstiger</span>';
+  if (lci <= 0.77) return '<span style="color:var(--red)">teurer</span>';
+  return '<span style="color:var(--muted)">ähnlich</span>';
+}
 
 // ── GLOBALE VARIABLEN ──
 let aktives_land     = null;
@@ -891,7 +916,7 @@ let panel_budget_ziel = 0;
 // ── ZAHL-ANIMATION ──
 function zaehle_hoch(el, zielwert, suffix, dauer, dezimal) {
   const start = performance.now();
-  const fmt   = new Intl.NumberFormat('de-CH', { maximumFractionDigits: dezimal || 0 });
+  const fmt   = dezimal === 1 ? FMT_1 : FMT_0;
   if (el._animation) cancelAnimationFrame(el._animation);
   function tick(now) {
     const t     = Math.min((now - start) / dauer, 1);
@@ -1054,7 +1079,6 @@ async function lade_und_zeige_panel(land_code) {
     if (!kurse) throw new Error('Kurse nicht verfügbar');
     const umgerechnet = umrechnen(budget, heimwaehrung, land.currency, kurse);
     const kurs        = umgerechnet / budget;
-    const fmt = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 });
     zaehle_hoch(document.getElementById('panel-converted'), Math.round(umgerechnet), ' ' + land.currency, 650);
     document.getElementById('panel-rate').textContent =
       `1 ${heimwaehrung} = ${kurs >= 100
@@ -1131,9 +1155,6 @@ function zeige_dish_karte(land, tier, budget, budget_ziel, kurse) {
   const b_ziel = Math.min(100, Math.round(p_ziel / max_p * 100));
   const b_heim = Math.min(100, Math.round(p_heim / max_p * 100));
 
-  const fmt_l = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 });
-  const fmt_h = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 2 });
-
   // Dish-Preis live aus lokalem Preis berechnen (nicht den statischen dishPriceCHF verwenden)
   const dish_preis_heim = umrechnen(dish.dishPrice, land.currency, heimwaehrung, kurse);
 
@@ -1142,13 +1163,7 @@ function zeige_dish_karte(land, tier, budget, budget_ziel, kurse) {
     ? HOME_CURRENCIES[heimland_iso].flag : '🏠';
   const heim_cur_name = CURRENCY_NAMES[heimwaehrung] || heimwaehrung;
 
-  // Tier-Badge Konfiguration
-  const tier_badges = {
-    premium: { label: '💎 Premium',  klasse: 'tier-badge--premium' },
-    classic: { label: '🍽 Classic · Richtwert', klasse: 'tier-badge--classic' },
-    budget:  { label: '🪙 Budget',   klasse: 'tier-badge--budget'  }
-  };
-  const badge = tier_badges[tier];
+  const badge = TIER_BADGES[tier];
   const is_classic = tier === 'classic';
 
   const div = document.createElement('div');
@@ -1168,9 +1183,9 @@ function zeige_dish_karte(land, tier, budget, budget_ziel, kurse) {
         </div>
       </div>
       <div class="dish-price-row">
-        <span class="dish-price-lokal">${fmt_l.format(dish.dishPrice)} ${land.currency}</span>
+        <span class="dish-price-lokal">${FMT_0.format(dish.dishPrice)} ${land.currency}</span>
         <span class="dish-price-cur-name">${CURRENCY_NAMES[land.currency] || land.currency}</span>
-        <span class="dish-price-chf">≈ ${heimwaehrung} ${fmt_h.format(dish_preis_heim)}</span>
+        <span class="dish-price-chf">≈ ${heimwaehrung} ${FMT_2.format(dish_preis_heim)}</span>
       </div>
     </div>
 
@@ -1212,7 +1227,7 @@ function zeige_dish_karte(land, tier, budget, budget_ziel, kurse) {
         </div>
       </div>
       <div class="dish-price-row">
-        <span class="dish-price-lokal" style="color:var(--citrus);">${fmt_h.format(ch_preis)} ${heimwaehrung}</span>
+        <span class="dish-price-lokal" style="color:var(--citrus);">${FMT_2.format(ch_preis)} ${heimwaehrung}</span>
         <span class="dish-price-cur-name">${heim_cur_name}</span>
         ${heimwaehrung !== 'CHF' ? `<span class="dish-price-chf">≈ CHF ${ch_dish.dishPriceCHF}</span>` : ''}
       </div>
@@ -1297,10 +1312,7 @@ function update_rueck_rechner() {
   }
   const ziel_waehrung = COUNTRIES[aktives_land].currency;
   const result = umrechnen(wert, ziel_waehrung, heimwaehrung, panel_kurse);
-  ergebnis_el.textContent = new Intl.NumberFormat('de-CH', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }).format(result);
+  ergebnis_el.textContent = FMT_2FIX.format(result);
 }
 
 // ── HEIMWÄHRUNG ──
@@ -1605,7 +1617,10 @@ function starte_vergleich() {
 }
 
 function schliesse_vergleich_overlay() {
-  document.getElementById('vergleich-overlay').style.display = 'none';
+  const vgl_el = document.getElementById('vergleich-overlay');
+  vgl_el.style.transform  = '';
+  vgl_el.style.transition = '';
+  vgl_el.style.display    = 'none';
   vergleich_land_1 = null;
   vergleich_modus  = false;
   if (d3_svg) d3_svg.selectAll('.country-land').classed('active', false);
@@ -1630,15 +1645,6 @@ async function zeige_vergleich_overlay(code1, code2) {
   const lci1     = berechne_lci(land1, budget, budget1, kurse);
   const lci2     = berechne_lci(land2, budget, budget2, kurse);
 
-  const fmt  = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 });
-  const fmt2 = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 2 });
-
-  function lci_label(lci) {
-    if (lci >= 1.3)  return '<span style="color:var(--forest)">günstiger</span>';
-    if (lci <= 0.77) return '<span style="color:var(--red)">teurer</span>';
-    return '<span style="color:var(--muted)">ähnlich</span>';
-  }
-
   function kopf_html(land, budget_lok, kurs_wert, lci) {
     const kurs_fmt = kurs_wert >= 100
       ? Math.round(kurs_wert).toLocaleString('de-CH')
@@ -1658,14 +1664,8 @@ async function zeige_vergleich_overlay(code1, code2) {
     zaehle_hoch(el, parseInt(el.dataset.ziel), el.dataset.suffix, 650);
   });
 
-  const tiers = [
-    { key: 'premium', emoji: '💎', label: 'Premium' },
-    { key: 'classic', emoji: '🍽', label: 'Classic' },
-    { key: 'budget',  emoji: '🪙', label: 'Budget'  }
-  ];
-
   const body = document.getElementById('vergleich-overlay-body');
-  body.innerHTML = tiers.map(function(tier) {
+  body.innerHTML = VGL_TIERS.map(function(tier) {
     const d1    = land1.dishes[tier.key];
     const d2    = land2.dishes[tier.key];
     const chf1  = umrechnen(d1.dishPrice, land1.currency, heimwaehrung, kurse);
@@ -1681,16 +1681,16 @@ async function zeige_vergleich_overlay(code1, code2) {
           <div class="vgl-dish-card ${g1}">
             <div class="vgl-dish-emoji">${d1.emoji}</div>
             <div class="vgl-dish-name">${d1.name}</div>
-            <div class="vgl-dish-lokal">${fmt.format(d1.dishPrice)} ${land1.currency}</div>
-            <div class="vgl-dish-chf">${fmt2.format(chf1)} ${heimwaehrung}</div>
+            <div class="vgl-dish-lokal">${FMT_0.format(d1.dishPrice)} ${land1.currency}</div>
+            <div class="vgl-dish-chf">${FMT_2.format(chf1)} ${heimwaehrung}</div>
             <div class="vgl-dish-anzahl">${anz1}× mit Budget</div>
           </div>
           <div class="vgl-vs-col">vs</div>
           <div class="vgl-dish-card ${g2}">
             <div class="vgl-dish-emoji">${d2.emoji}</div>
             <div class="vgl-dish-name">${d2.name}</div>
-            <div class="vgl-dish-lokal">${fmt.format(d2.dishPrice)} ${land2.currency}</div>
-            <div class="vgl-dish-chf">${fmt2.format(chf2)} ${heimwaehrung}</div>
+            <div class="vgl-dish-lokal">${FMT_0.format(d2.dishPrice)} ${land2.currency}</div>
+            <div class="vgl-dish-chf">${FMT_2.format(chf2)} ${heimwaehrung}</div>
             <div class="vgl-dish-anzahl">${anz2}× mit Budget</div>
           </div>
         </div>
@@ -2209,6 +2209,37 @@ async function init() {
       el.addEventListener('touchmove',  swipe_move,  { passive: true });
       el.addEventListener('touchend',   swipe_end);
     });
+
+    // Swipe-to-close für Vergleich-Overlay (am Header wischen)
+    const vgl_overlay = document.getElementById('vergleich-overlay');
+    const vgl_header  = document.getElementById('vergleich-overlay-header');
+    let vgl_start_y = 0, vgl_delta = 0, vgl_aktiv = false;
+    if (vgl_header) {
+      vgl_header.addEventListener('touchstart', function(e) {
+        if (vgl_overlay.style.display === 'none') return;
+        vgl_start_y = e.touches[0].clientY;
+        vgl_delta   = 0;
+        vgl_aktiv   = true;
+        vgl_overlay.style.transition = 'none';
+      }, { passive: true });
+      vgl_header.addEventListener('touchmove', function(e) {
+        if (!vgl_aktiv) return;
+        vgl_delta = Math.max(0, e.touches[0].clientY - vgl_start_y);
+        vgl_overlay.style.transform = 'translateY(' + vgl_delta + 'px)';
+      }, { passive: true });
+      vgl_header.addEventListener('touchend', function() {
+        if (!vgl_aktiv) return;
+        vgl_aktiv = false;
+        vgl_overlay.style.transition = 'transform 0.3s var(--ease)';
+        if (vgl_delta > 120) {
+          vgl_overlay.style.transform = 'translateY(100%)';
+          setTimeout(function() { schliesse_vergleich_overlay(); }, 300);
+        } else {
+          vgl_overlay.style.transform = 'translateY(0)';
+          setTimeout(function() { vgl_overlay.style.transition = ''; }, 300);
+        }
+      });
+    }
   }
 
   // Mobile: Karte antippen schließt das Bottom Sheet
