@@ -44,7 +44,7 @@ const CURRENCY_NAMES = {
   RWF:'Ruandischer Franc', NAD:'Namibischer Dollar', UGX:'Ugandischer Schilling',
   FJD:'Fidschianischer Dollar', XPF:'CFP-Franc (Pazifik)', PGK:'Papua-Neuguineanische Kina',
   HKD:'Hongkong-Dollar', MOP:'Macao-Pataca', BND:'Brunei-Dollar', BDT:'Bangladeschischer Taka',
-  KWD:'Kuwaitischer Dinar', OMR:'Omanischer Rial', BHD:'Bahraini Dinar', IQD:'Irakischer Dinar',
+  KWD:'Kuwaitischer Dinar', OMR:'Omanischer Rial', BHD:'Bahrainischer Dinar', IQD:'Irakischer Dinar',
   AZN:'Aserbaidschanischer Manat', AMD:'Armenischer Dram', KZT:'Kasachischer Tenge',
   UZS:'Usbekischer Sum', TJS:'Tadschikischer Somoni', TMT:'Turkmenischer Manat',
   GTQ:'Guatemaltekischer Quetzal', HNL:'Honduranische Lempira', NIO:'Nicaraguanischer Córdoba',
@@ -63,12 +63,12 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🥩', name: 'Korean BBQ (Galbi)', desc: 'Marinierte Rindsrippchen, am Tisch selbst gegrillt — das gesellige Premium-Erlebnis.', dishPrice: 45000, dishPriceCHF: 46 },
       classic: { emoji: '🍲', name: 'Bibimbap',            desc: 'Schüssel mit Reis, buntem Gemüse, Ei und scharfer Gochujang-Paste — Koreas Nationalgericht.', dishPrice: 12000, dishPriceCHF: 13 },
-      budget:  { emoji: '🌯', name: 'Tteokbokki',          desc: 'Würzige Reiskuchen in roter Chilisauce — beliebter Strassensnack.', dishPrice: 4000, dishPriceCHF: 4 } } },
+      budget:  { emoji: '🍢', name: 'Tteokbokki',          desc: 'Würzige Reiskuchen in roter Chilisauce — beliebter Strassensnack.', dishPrice: 4000, dishPriceCHF: 4 } } },
   TH: { name: 'Thailand', flag: '🇹🇭', currency: 'THB', continent: 'Asien', geo: [101, 15, 4],
     dishes: {
       premium: { emoji: '🦐', name: 'Prawn Tom Yum',  desc: 'Scharfe, saure Suppe mit Garnelen, Galgant und Kaffernlimette — Bangkoks Restaurantklassiker.', dishPrice: 350, dishPriceCHF: 18 },
       classic: { emoji: '🍜', name: 'Pad Thai',        desc: 'Gebratene Reisnudeln mit Ei, Tamarinde, Erdnüssen und Limette — Thailands bekanntestes Gericht.', dishPrice: 80, dishPriceCHF: 21 },
-      budget:  { emoji: '🌯', name: 'Frühlingsrolle',  desc: 'Knusprige, gefüllte Rolle aus Reisteig — überall vom Strassenstand erhältlich.', dishPrice: 25, dishPriceCHF: 3 } } },
+      budget:  { emoji: '🥟', name: 'Frühlingsrolle',  desc: 'Knusprige, gefüllte Rolle aus Reisteig — überall vom Strassenstand erhältlich.', dishPrice: 25, dishPriceCHF: 3 } } },
   IN: { name: 'Indien', flag: '🇮🇳', currency: 'INR', continent: 'Asien', geo: [78, 22, 3],
     dishes: {
       premium: { emoji: '🍛', name: 'Butter Chicken',  desc: 'Zartes Hähnchen in samtig-cremiger Tomatensauce — Indiens bekanntestes Exportgericht.', dishPrice: 400, dishPriceCHF: 22 },
@@ -78,7 +78,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🦆', name: 'Peking-Ente',      desc: 'Knusprige Ente mit hauchdünner Haut, serviert in Pfannkuchen mit Hoisin-Sauce — über 600 Jahre alt.', dishPrice: 200, dishPriceCHF: 45 },
       classic: { emoji: '🥟', name: 'Dim Sum (4 Stk.)', desc: 'Gedämpfte oder gebratene Teigtaschen mit verschiedenen Füllungen — Kantonesische Tradition.', dishPrice: 45, dishPriceCHF: 12 },
-      budget:  { emoji: '🍡', name: 'Jianbing',          desc: 'Dünnes Crêpe aus Maismeig mit Ei, Sauce und knusprigem Waffelblatt — Chinas beliebtestes Strassenfrühstück.', dishPrice: 12, dishPriceCHF: 4 } } },
+      budget:  { emoji: '🫔', name: 'Jianbing',          desc: 'Dünnes Crêpe aus Maismeig mit Ei, Sauce und knusprigem Waffelblatt — Chinas beliebtestes Strassenfrühstück.', dishPrice: 12, dishPriceCHF: 4 } } },
   ID: { name: 'Indonesien', flag: '🇮🇩', currency: 'IDR', continent: 'Asien', geo: [118, -2, 4],
     dishes: {
       premium: { emoji: '🦞', name: 'Lobster Bakar',      desc: 'Gegrillter Hummer mit Kokossauce und Gewürzen — Spezialität der Meeresfrüchte-Restaurants.', dishPrice: 350000, dishPriceCHF: 32 },
@@ -97,8 +97,8 @@ const COUNTRIES = {
   DE: { name: 'Deutschland', flag: '🇩🇪', currency: 'EUR', continent: 'Europa', geo: [10, 51, 5],
     dishes: {
       premium: { emoji: '🦆', name: 'Ente à l\'Orange',    desc: 'Gebratene Ente mit Orangensauce — das klassische gehobene deutsche Festessen.', dishPrice: 32, dishPriceCHF: 38 },
-      classic: { emoji: '🥨', name: 'Currywurst & Pommes', desc: 'Gebratene Bratwurst mit Curryketchup und Pommes frites — Berlins kulinarisches Wahrzeichen.', dishPrice: 8, dishPriceCHF: 14 },
-      budget:  { emoji: '🍺', name: 'Brezel',               desc: 'Laugenbrezel mit grobem Salz — das günstigste klassische deutsche Backwerk zum Unterwegs essen.', dishPrice: 2, dishPriceCHF: 4 } } },
+      classic: { emoji: '🌭', name: 'Currywurst & Pommes', desc: 'Gebratene Bratwurst mit Curryketchup und Pommes frites — Berlins kulinarisches Wahrzeichen.', dishPrice: 8, dishPriceCHF: 14 },
+      budget:  { emoji: '🥨', name: 'Brezel',               desc: 'Laugenbrezel mit grobem Salz — das günstigste klassische deutsche Backwerk zum Unterwegs essen.', dishPrice: 2, dishPriceCHF: 4 } } },
   AT: { name: 'Österreich', flag: '🇦🇹', currency: 'EUR', continent: 'Europa', geo: [14, 47, 5],
     dishes: {
       premium: { emoji: '🥩', name: 'Tafelspitz',       desc: 'Gekochtes Rindfleisch in Rindsbouillon mit Rösti und Apfelkren — das Wiener Hochküchen-Klassiker.', dishPrice: 34, dishPriceCHF: 40 },
@@ -107,7 +107,7 @@ const COUNTRIES = {
   FR: { name: 'Frankreich', flag: '🇫🇷', currency: 'EUR', continent: 'Europa', geo: [2, 46, 5],
     dishes: {
       premium: { emoji: '🥩', name: 'Entrecôte',       desc: 'Gegrilltes Rindsentrecôte mit Sauce Béarnaise — das klassische französische Bistro-Premium.', dishPrice: 38, dishPriceCHF: 52 },
-      classic: { emoji: '🥐', name: 'Croque Monsieur', desc: 'Gegrilltes Schinken-Käse-Sandwich mit Béchamelsauce — das franzözische Bistro-Mittagessen.', dishPrice: 9, dishPriceCHF: 13 },
+      classic: { emoji: '🥪', name: 'Croque Monsieur', desc: 'Gegrilltes Schinken-Käse-Sandwich mit Béchamelsauce — das franzözische Bistro-Mittagessen.', dishPrice: 9, dishPriceCHF: 13 },
       budget:  { emoji: '🥖', name: 'Baguette',         desc: 'Frisches Baguette nature aus der Boulangerie — das tägliche Brot Frankreichs.', dishPrice: 1.3, dishPriceCHF: 3 } } },
   IT: { name: 'Italien', flag: '🇮🇹', currency: 'EUR', continent: 'Europa', geo: [12, 42, 5],
     dishes: {
@@ -116,7 +116,7 @@ const COUNTRIES = {
       budget:  { emoji: '☕', name: 'Espresso',          desc: 'Kleiner, starker Kaffee — in Italien an der Bar stehend getrunken, ein kulturelles Ritual.', dishPrice: 1.5, dishPriceCHF: 4 } } },
   ES: { name: 'Spanien', flag: '🇪🇸', currency: 'EUR', continent: 'Europa', geo: [-3, 40, 5],
     dishes: {
-      premium: { emoji: '🦞', name: 'Paella Valenciana', desc: 'Safranreis mit Hühnchen, Kaninchen und grünen Bohnen — Spaniens kulinarisches Aushängeschild.', dishPrice: 28, dishPriceCHF: 36 },
+      premium: { emoji: '🥘', name: 'Paella Valenciana', desc: 'Safranreis mit Hühnchen, Kaninchen und grünen Bohnen — Spaniens kulinarisches Aushängeschild.', dishPrice: 28, dishPriceCHF: 36 },
       classic: { emoji: '🥘', name: 'Tortilla Española', desc: 'Dickes Kartoffel-Ei-Omelett — warm oder kalt, zu jeder Tageszeit in ganz Spanien.', dishPrice: 8, dishPriceCHF: 16 },
       budget:  { emoji: '🍢', name: 'Pintxos (3 Stk.)',  desc: 'Kleine baskische Häppchen auf Brot, oft mit Zahnstocher befestigt — Baskenland-Spezialität.', dishPrice: 4, dishPriceCHF: 8 } } },
   PT: { name: 'Portugal', flag: '🇵🇹', currency: 'EUR', continent: 'Europa', geo: [-8, 39, 5],
@@ -136,12 +136,12 @@ const COUNTRIES = {
       budget:  { emoji: '🍫', name: 'Praline (3 Stk.)', desc: 'Handgemachte Schokoladenpralinen — Belgien produziert über 220.000 Tonnen Schokolade pro Jahr.', dishPrice: 3, dishPriceCHF: 5 } } },
   NL: { name: 'Niederlande', flag: '🇳🇱', currency: 'EUR', continent: 'Europa', geo: [5, 52, 6],
     dishes: {
-      premium: { emoji: '🐟', name: 'Zeeuwse Oesters', desc: 'Frische Austern aus Zeeland — die niederländische Delikatesse schlechthin.', dishPrice: 32, dishPriceCHF: 38 },
+      premium: { emoji: '🦪', name: 'Zeeuwse Oesters', desc: 'Frische Austern aus Zeeland — die niederländische Delikatesse schlechthin.', dishPrice: 32, dishPriceCHF: 38 },
       classic: { emoji: '🥘', name: 'Stamppot',          desc: 'Stampfkartoffeln mit Grünkohl oder Möhren, serviert mit Rookworst-Wurst — das holländische Wintergericht.', dishPrice: 12, dishPriceCHF: 18 },
       budget:  { emoji: '🐟', name: 'Haring',            desc: 'Roher gesalzener Hering, gegessen mit Zwiebeln und Essiggurken — Hollands günstigstes Strassengericht.', dishPrice: 3.5, dishPriceCHF: 5 } } },
   DK: { name: 'Dänemark', flag: '🇩🇰', currency: 'DKK', continent: 'Europa', geo: [10, 56, 5],
     dishes: {
-      premium: { emoji: '🦞', name: 'Smørrebrød Laks', desc: 'Offenes Schwarzbrot-Sandwich mit Räucherlachs und Garnelen — Dänemarks kulinarische Hochkunst.', dishPrice: 220, dishPriceCHF: 42 },
+      premium: { emoji: '🐟', name: 'Smørrebrød Laks', desc: 'Offenes Schwarzbrot-Sandwich mit Räucherlachs und Garnelen — Dänemarks kulinarische Hochkunst.', dishPrice: 220, dishPriceCHF: 42 },
       classic: { emoji: '🥩', name: 'Frikadeller',      desc: 'Dänische Fleischklopse aus Schweine- und Kalbshack mit Rotkohl — das dänische Hausessen.', dishPrice: 120, dishPriceCHF: 28 },
       budget:  { emoji: '🥐', name: 'Wienerbrød',        desc: 'Dänisches Gebäck aus Plunderteig — was wir "Dänisches Plundergebäck" nennen, kommt aus Dänemark.', dishPrice: 30, dishPriceCHF: 6 } } },
   NO: { name: 'Norwegen', flag: '🇳🇴', currency: 'NOK', continent: 'Europa', geo: [10, 64, 4],
@@ -152,8 +152,8 @@ const COUNTRIES = {
   SE: { name: 'Schweden', flag: '🇸🇪', currency: 'SEK', continent: 'Europa', geo: [17, 62, 4],
     dishes: {
       premium: { emoji: '🦐', name: 'Kräftor-Buffet', desc: 'Tafelrunde mit Flusskrebsen, gefeiert beim traditionellen Kräftskiva-Fest im August.', dishPrice: 380, dishPriceCHF: 48 },
-      classic: { emoji: '🍢', name: 'Köttbullar',      desc: 'Kleine Fleischbällchen aus Schweine- und Rindshack mit Preiselbeeren und Kartoffeln.', dishPrice: 120, dishPriceCHF: 18 },
-      budget:  { emoji: '🫐', name: 'Kanelbulle',       desc: 'Süsses Zimtschneckchen — Schweden hat sogar einen eigenen nationalen Kanelbulle-Tag (4. Oktober).', dishPrice: 35, dishPriceCHF: 5 } } },
+      classic: { emoji: '🥩', name: 'Köttbullar',      desc: 'Kleine Fleischbällchen aus Schweine- und Rindshack mit Preiselbeeren und Kartoffeln.', dishPrice: 120, dishPriceCHF: 18 },
+      budget:  { emoji: '🥐', name: 'Kanelbulle',       desc: 'Süsses Zimtschneckchen — Schweden hat sogar einen eigenen nationalen Kanelbulle-Tag (4. Oktober).', dishPrice: 35, dishPriceCHF: 5 } } },
   FI: { name: 'Finnland', flag: '🇫🇮', currency: 'EUR', continent: 'Europa', geo: [26, 64, 4],
     dishes: {
       premium: { emoji: '🦌', name: 'Rentier-Filet', desc: 'Zartes Rentierfilet aus Lappland, geschmort oder gebraten — das finnische Luxusgericht.', dishPrice: 42, dishPriceCHF: 52 },
@@ -167,7 +167,7 @@ const COUNTRIES = {
   GR: { name: 'Griechenland', flag: '🇬🇷', currency: 'EUR', continent: 'Europa', geo: [22, 39, 5],
     dishes: {
       premium: { emoji: '🐙', name: 'Gegrillter Oktopus', desc: 'Langsam getrockneter und dann gegrillter Oktopus mit Olivenöl und Zitrone — griechische Meeresfrüchte-Spezialität.', dishPrice: 28, dishPriceCHF: 34 },
-      classic: { emoji: '🥗', name: 'Moussaka',            desc: 'Auflauf mit Auberginen, Hackfleisch und Béchamelsauce — Griechenlands Nationalgericht.', dishPrice: 12, dishPriceCHF: 18 },
+      classic: { emoji: '🫕', name: 'Moussaka',            desc: 'Auflauf mit Auberginen, Hackfleisch und Béchamelsauce — Griechenlands Nationalgericht.', dishPrice: 12, dishPriceCHF: 18 },
       budget:  { emoji: '🥙', name: 'Gyros Pita',          desc: 'Drehspiess-Fleisch im Fladenbrot mit Tzatziki und Tomaten — Griechenlands Strassenfood Nr. 1.', dishPrice: 3, dishPriceCHF: 6 } } },
   HR: { name: 'Kroatien', flag: '🇭🇷', currency: 'EUR', continent: 'Europa', geo: [16, 45, 5],
     dishes: {
@@ -202,7 +202,7 @@ const COUNTRIES = {
   CR: { name: 'Costa Rica', flag: '🇨🇷', currency: 'CRC', continent: 'Mittelamerika', geo: [-84, 10, 6],
     dishes: {
       premium: { emoji: '🦞', name: 'Langosta Entera', desc: 'Ganzer gegrillter Hummer von der Karibik-Küste — Costa Ricas Meeresfrüchte-Luxus.', dishPrice: 18000, dishPriceCHF: 42 },
-      classic: { emoji: '🍛', name: 'Casado',           desc: 'Reisgericht mit Bohnen, Fleisch, Salat und Reisfritters — das tägliche Mittagessen Costa Ricas.', dishPrice: 4500, dishPriceCHF: 12 },
+      classic: { emoji: '🍚', name: 'Casado',           desc: 'Reisgericht mit Bohnen, Fleisch, Salat und Reisfritters — das tägliche Mittagessen Costa Ricas.', dishPrice: 4500, dishPriceCHF: 12 },
       budget:  { emoji: '🌽', name: 'Gallo Pinto',      desc: 'Gebratener Reis mit schwarzen Bohnen — das Frühstück Costa Ricas, morgens, mittags, abends.', dishPrice: 1500, dishPriceCHF: 4 } } },
   CO: { name: 'Kolumbien', flag: '🇨🇴', currency: 'COP', continent: 'Südamerika', geo: [-74, 4, 4],
     dishes: {
@@ -217,12 +217,12 @@ const COUNTRIES = {
   PE: { name: 'Peru', flag: '🇵🇪', currency: 'PEN', continent: 'Südamerika', geo: [-76, -10, 4],
     dishes: {
       premium: { emoji: '🐟', name: 'Ceviche Mixto', desc: 'Frischer Fisch und Meeresfrüchte in Limettensaft mariniert mit Chili — Lima gilt als Gastronomiemetropole Südamerikas.', dishPrice: 65, dishPriceCHF: 28 },
-      classic: { emoji: '🍗', name: 'Lomo Saltado',   desc: 'Rindfleisch-Stir-Fry mit Tomaten, Zwiebeln und Pommes — die peruanische Fusion mit chinesischen Einflüssen.', dishPrice: 35, dishPriceCHF: 16 },
-      budget:  { emoji: '🌽', name: 'Anticuchos',     desc: 'Gegrillte Rinderherz-Spiesse mit Ají-Sauce — uraltes Andengericht, heute überall Strassenfood.', dishPrice: 8, dishPriceCHF: 4 } } },
+      classic: { emoji: '🥩', name: 'Lomo Saltado',   desc: 'Rindfleisch-Stir-Fry mit Tomaten, Zwiebeln und Pommes — die peruanische Fusion mit chinesischen Einflüssen.', dishPrice: 35, dishPriceCHF: 16 },
+      budget:  { emoji: '🍢', name: 'Anticuchos',     desc: 'Gegrillte Rinderherz-Spiesse mit Ají-Sauce — uraltes Andengericht, heute überall Strassenfood.', dishPrice: 8, dishPriceCHF: 4 } } },
   CL: { name: 'Chile', flag: '🇨🇱', currency: 'CLP', continent: 'Südamerika', geo: [-71, -35, 4],
     dishes: {
       premium: { emoji: '🦞', name: 'Centolla',          desc: 'Patagonische Königskrabbe — Chiles Meeresfrüchte-Luxus aus dem eiskalten Südatlantik.', dishPrice: 28000, dishPriceCHF: 38 },
-      classic: { emoji: '🥩', name: 'Pastel de Choclo',  desc: 'Auflauf aus Maisbrei mit Hackfleisch, Zwiebeln, Rosinen und Ei — Chiles Comfort-Food.', dishPrice: 7000, dishPriceCHF: 14 },
+      classic: { emoji: '🫕', name: 'Pastel de Choclo',  desc: 'Auflauf aus Maisbrei mit Hackfleisch, Zwiebeln, Rosinen und Ei — Chiles Comfort-Food.', dishPrice: 7000, dishPriceCHF: 14 },
       budget:  { emoji: '🌭', name: 'Completo',           desc: 'Chilenischer Hotdog mit Avocado, Sauerkraut und Mayonnaise — grosszügiger als jeder andere Hotdog.', dishPrice: 2000, dishPriceCHF: 4 } } },
   AR: { name: 'Argentinien', flag: '🇦🇷', currency: 'ARS', continent: 'Südamerika', geo: [-64, -34, 3],
     dishes: {
@@ -248,7 +248,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🐑', name: 'Lamm-Tajine', desc: 'Geschmortes Lamm mit Salzzitronen und Oliven im Kegelgefäss — Marokkos Signature-Gericht.', dishPrice: 80, dishPriceCHF: 27 },
       classic: { emoji: '🫕', name: 'Couscous',     desc: 'Freitagstradition: gedämpfter Hartweizengrieß mit Gemüse und Fleisch — das Nationalgericht Marokkos.', dishPrice: 50, dishPriceCHF: 18 },
-      budget:  { emoji: '🥙', name: 'Msemen',        desc: 'Blättriges Fladenbrot vom Strassenstand — zum Frühstück mit Argan-Honig oder als Sandwich.', dishPrice: 5, dishPriceCHF: 3 } } },
+      budget:  { emoji: '🫓', name: 'Msemen',        desc: 'Blättriges Fladenbrot vom Strassenstand — zum Frühstück mit Argan-Honig oder als Sandwich.', dishPrice: 5, dishPriceCHF: 3 } } },
   SN: { name: 'Senegal', flag: '🇸🇳', currency: 'XOF', continent: 'Afrika', geo: [-14, 14, 5],
     dishes: {
       premium: { emoji: '🐟', name: 'Thiéboudienne', desc: 'Fisch mit Gemüse auf gebräuntem Reis — Senegals Nationalgericht und UNESCO-Kulturerbe.', dishPrice: 8000, dishPriceCHF: 20 },
@@ -293,28 +293,28 @@ const COUNTRIES = {
       budget:  { emoji: '🍜', name: 'Laksa',               desc: 'Scharfe Kokos-Curry-Suppe mit Reisnudeln — typisches Hawker-Centre-Gericht für unter 5 SGD.', dishPrice: 5, dishPriceCHF: 5 } } },
   TW: { name: 'Taiwan', flag: '🇹🇼', currency: 'TWD', continent: 'Asien', geo: [121, 24, 6],
     dishes: {
-      premium: { emoji: '🦞', name: 'Hairy Crab Menü',    desc: 'Saisondampfkrabbe mit Ingwer-Reiswein — in Taiwan nur im Herbst erhältlich, gilt als Delikatesse.', dishPrice: 1800, dishPriceCHF: 72 },
-      classic: { emoji: '🥩', name: 'Beef Noodle Soup',   desc: 'Langsam geschmortes Rindfleisch in würziger Brühe mit dicken Weizennudeln — Taiwans inoffzielles Nationalgericht.', dishPrice: 180, dishPriceCHF: 7 },
-      budget:  { emoji: '🥟', name: 'Scallion Pancake',   desc: 'Knuspriger Lauch-Pfannkuchen vom Strassenstand — frühmorgens an jeder Ecke Taipei für unter 2 CHF.', dishPrice: 35, dishPriceCHF: 1.5 } } },
+      premium: { emoji: '🦀', name: 'Hairy Crab Menü',    desc: 'Saisondampfkrabbe mit Ingwer-Reiswein — in Taiwan nur im Herbst erhältlich, gilt als Delikatesse.', dishPrice: 1800, dishPriceCHF: 72 },
+      classic: { emoji: '🍜', name: 'Beef Noodle Soup',   desc: 'Langsam geschmortes Rindfleisch in würziger Brühe mit dicken Weizennudeln — Taiwans inoffzielles Nationalgericht.', dishPrice: 180, dishPriceCHF: 7 },
+      budget:  { emoji: '🫓', name: 'Scallion Pancake',   desc: 'Knuspriger Lauch-Pfannkuchen vom Strassenstand — frühmorgens an jeder Ecke Taipei für unter 2 CHF.', dishPrice: 35, dishPriceCHF: 1.5 } } },
   MY: { name: 'Malaysia', flag: '🇲🇾', currency: 'MYR', continent: 'Asien', geo: [110, 4, 5],
     dishes: {
-      premium: { emoji: '🦞', name: 'Butter Prawn',        desc: 'Riesige Riesengarnelen in schaumiger Buttersauce mit Curryleaves — Malaysias Meeresfrüchte-Signature.', dishPrice: 60, dishPriceCHF: 17 },
+      premium: { emoji: '🦐', name: 'Butter Prawn',        desc: 'Riesige Riesengarnelen in schaumiger Buttersauce mit Curryleaves — Malaysias Meeresfrüchte-Signature.', dishPrice: 60, dishPriceCHF: 17 },
       classic: { emoji: '🍛', name: 'Nasi Lemak',           desc: 'Kokosreis mit Sambal, Sardellen, Erdnüssen und Ei — Malaysias Frühstücksgericht und Nationalgericht zugleich.', dishPrice: 8, dishPriceCHF: 2 },
-      budget:  { emoji: '🥜', name: 'Roti Canai',           desc: 'Hauchdünnes, blättriges Fladenbrot mit Linsencurry — für Centbeträge an jedem Mamak-Stall, 24 Stunden am Tag.', dishPrice: 2, dishPriceCHF: 0.6 } } },
+      budget:  { emoji: '🫓', name: 'Roti Canai',           desc: 'Hauchdünnes, blättriges Fladenbrot mit Linsencurry — für Centbeträge an jedem Mamak-Stall, 24 Stunden am Tag.', dishPrice: 2, dishPriceCHF: 0.6 } } },
   KH: { name: 'Kambodscha', flag: '🇰🇭', currency: 'KHR', continent: 'Asien', geo: [105, 12, 5],
     dishes: {
-      premium: { emoji: '🐊', name: 'Amok Trei',            desc: 'Fisch in Kokoscurry gedämpft in einem Bananenblatt — Kambodschas Nationalgericht in Restaurantversion.', dishPrice: 40000, dishPriceCHF: 12 },
+      premium: { emoji: '🐟', name: 'Amok Trei',            desc: 'Fisch in Kokoscurry gedämpft in einem Bananenblatt — Kambodschas Nationalgericht in Restaurantversion.', dishPrice: 40000, dishPriceCHF: 12 },
       classic: { emoji: '🍲', name: 'Kuy Teav',             desc: 'Reisnudelsuppe mit Schweinefleisch und frischen Kräutern — Kambodschas tägliches Frühstücksgericht.', dishPrice: 8000, dishPriceCHF: 2.5 },
       budget:  { emoji: '🥖', name: 'Num Pang',             desc: 'Kambodschanisches Baguette-Sandwich mit Paté und Pickles — Erbe der französischen Kolonialzeit, für unter 1 USD.', dishPrice: 3000, dishPriceCHF: 1 } } },
   LK: { name: 'Sri Lanka', flag: '🇱🇰', currency: 'LKR', continent: 'Asien', geo: [81, 8, 6],
     dishes: {
-      premium: { emoji: '🦞', name: 'Jaffna Crab Curry',   desc: 'Frische Krabbe in aromatischem Tamil-Curry mit Kokosmilch — Spezialität des Nordens, gilt als bestes Currygericht Sri Lankas.', dishPrice: 3500, dishPriceCHF: 14 },
+      premium: { emoji: '🦀', name: 'Jaffna Crab Curry',   desc: 'Frische Krabbe in aromatischem Tamil-Curry mit Kokosmilch — Spezialität des Nordens, gilt als bestes Currygericht Sri Lankas.', dishPrice: 3500, dishPriceCHF: 14 },
       classic: { emoji: '🥘', name: 'Rice & Curry',         desc: 'Riesiges Thali-Tablett mit bis zu 8 verschiedenen Currys und Reis — die tägliche Hauptmahlzeit Sri Lankas.', dishPrice: 800, dishPriceCHF: 3 },
       budget:  { emoji: '🥞', name: 'Hoppers',              desc: 'Knusprige Reismehl-Schälchen, allein oder mit Ei — das günstigste Frühstück Sri Lankas.', dishPrice: 150, dishPriceCHF: 0.6 } } },
   AE: { name: 'VAE (Dubai)', flag: '🇦🇪', currency: 'AED', continent: 'Naher Osten', geo: [55, 25, 6],
     dishes: {
       premium: { emoji: '🥩', name: 'Wagyu Tomahawk',       desc: 'Japanisches Wagyu-Steak am Knochen aus Dubais Luxusrestaurants — das teuerste Steak-Erlebnis im Nahen Osten.', dishPrice: 800, dishPriceCHF: 280 },
-      classic: { emoji: '🥙', name: 'Al Harees',            desc: 'Langsam gekochter Weizen mit Lamm oder Hähnchen — traditionelles Emirati-Gericht, besonders im Ramadan.', dishPrice: 55, dishPriceCHF: 20 },
+      classic: { emoji: '🫕', name: 'Al Harees',            desc: 'Langsam gekochter Weizen mit Lamm oder Hähnchen — traditionelles Emirati-Gericht, besonders im Ramadan.', dishPrice: 55, dishPriceCHF: 20 },
       budget:  { emoji: '🫓', name: 'Shawarma Wrap',        desc: 'Fleisch vom Spiess im dünnen Fladenbrot — Dubais günstigstes Strassenfood für unter 2 USD.', dishPrice: 5, dishPriceCHF: 1.8 } } },
   IL: { name: 'Israel', flag: '🇮🇱', currency: 'ILS', continent: 'Naher Osten', geo: [35, 31, 6],
     dishes: {
@@ -324,28 +324,28 @@ const COUNTRIES = {
   JO: { name: 'Jordanien', flag: '🇯🇴', currency: 'JOD', continent: 'Naher Osten', geo: [37, 31, 6],
     dishes: {
       premium: { emoji: '🐑', name: 'Mansaf',               desc: 'Lamm auf Riesenbrot mit fermentierter Ziegenjoghurtsauce — Jordaniens Nationalgericht, traditionell mit der Hand gegessen.', dishPrice: 15, dishPriceCHF: 27 },
-      classic: { emoji: '🥙', name: 'Foul Mudammas',        desc: 'Gekochte Favabohnen mit Olivenöl, Zitrone und Kreuzkümmel — das Frühstücksgericht des ganzen Nahen Ostens.', dishPrice: 2.5, dishPriceCHF: 5 },
+      classic: { emoji: '🫘', name: 'Foul Mudammas',        desc: 'Gekochte Favabohnen mit Olivenöl, Zitrone und Kreuzkümmel — das Frühstücksgericht des ganzen Nahen Ostens.', dishPrice: 2.5, dishPriceCHF: 5 },
       budget:  { emoji: '🫓', name: 'Kaak-Brot',            desc: 'Sesam-Ringbrot vom ambulanten Händler — Ammans günstigstes Strassenbrot für Cent-Beträge.', dishPrice: 0.3, dishPriceCHF: 0.6 } } },
   PL: { name: 'Polen', flag: '🇵🇱', currency: 'PLN', continent: 'Europa', geo: [20, 52, 5],
     dishes: {
-      premium: { emoji: '🦆', name: 'Żurek z Kiełbasą',     desc: 'Sauerrahm-Roggensuppe mit Weisswurst und Ei im Brotlaib serviert — Polens Hochküchen-Klassiker aus der alten Küche.', dishPrice: 60, dishPriceCHF: 17 },
+      premium: { emoji: '🍲', name: 'Żurek z Kiełbasą',     desc: 'Sauerrahm-Roggensuppe mit Weisswurst und Ei im Brotlaib serviert — Polens Hochküchen-Klassiker aus der alten Küche.', dishPrice: 60, dishPriceCHF: 17 },
       classic: { emoji: '🥟', name: 'Pierogi Ruskie',       desc: 'Gekochte Teigtaschen gefüllt mit Kartoffeln, Quark und Zwiebeln — Polens geliebtes Nationalessen.', dishPrice: 25, dishPriceCHF: 7 },
       budget:  { emoji: '🌭', name: 'Zapiekanka',            desc: 'Baguette-Häfte mit Pilzen, Käse und Ketchup — Krakaus Antwort auf die Pizza, seit den 1970ern beliebt.', dishPrice: 12, dishPriceCHF: 3 } } },
   CZ: { name: 'Tschechien', flag: '🇨🇿', currency: 'CZK', continent: 'Europa', geo: [16, 50, 6],
     dishes: {
-      premium: { emoji: '🦆', name: 'Svíčková na smetaně', desc: 'Rindsfilet in Sahnesauce mit Knödel und Preiselbeeren — Tschechiens elaboriertestes Traditionsgericht.', dishPrice: 450, dishPriceCHF: 22 },
+      premium: { emoji: '🥩', name: 'Svíčková na smetaně', desc: 'Rindsfilet in Sahnesauce mit Knödel und Preiselbeeren — Tschechiens elaboriertestes Traditionsgericht.', dishPrice: 450, dishPriceCHF: 22 },
       classic: { emoji: '🥩', name: 'Svíčková (einfach)',   desc: 'Rindsgulasch mit Böhmischen Knödeln und Rotkraut — das tägliche Mittagessen in Prager Kantinen.', dishPrice: 200, dishPriceCHF: 10 },
       budget:  { emoji: '🍺', name: 'Knedlík & Pivo',       desc: 'Böhmischer Knödel mit Bier — in Prag ist Bier billiger als Wasser, Pils für unter 1 CHF.', dishPrice: 60, dishPriceCHF: 3 } } },
   HU: { name: 'Ungarn', flag: '🇭🇺', currency: 'HUF', continent: 'Europa', geo: [19, 47, 6],
     dishes: {
       premium: { emoji: '🦢', name: 'Fogas vom Balaton',    desc: 'Zander aus dem Balaton-See, gebratene Spezialität Ungarns — gilt als der edelste Süsswasserfisch Europas.', dishPrice: 7500, dishPriceCHF: 24 },
       classic: { emoji: '🍲', name: 'Gulyás',               desc: 'Ungarischer Gulasch — Rindsfleisch mit Paprika langsam geschmort, Ursprung des weltberühmten Gerichts.', dishPrice: 3500, dishPriceCHF: 11 },
-      budget:  { emoji: '🥐', name: 'Lángos',               desc: 'Frittierter Hefeteig mit Sauerrahm und Käse — Ungarns beliebtester Strassensnack auf jedem Markt.', dishPrice: 900, dishPriceCHF: 3 } } },
+      budget:  { emoji: '🍩', name: 'Lángos',               desc: 'Frittierter Hefeteig mit Sauerrahm und Käse — Ungarns beliebtester Strassensnack auf jedem Markt.', dishPrice: 900, dishPriceCHF: 3 } } },
   KE: { name: 'Kenia', flag: '🇰🇪', currency: 'KES', continent: 'Afrika', geo: [38, 0, 5],
     dishes: {
       premium: { emoji: '🥩', name: 'Nyama Choma',           desc: 'Langsam über Holzkohle gegrilltes Ziegenfleisch — Kenias Festessen, an jedem Wochenende in Nairobi gefeiert.', dishPrice: 1200, dishPriceCHF: 11 },
       classic: { emoji: '🍲', name: 'Ugali & Sukuma Wiki',   desc: 'Fester Maisbrei mit gedünstetem Grünkohl und Bohnen — das tägliche Grundnahrungsmittel von über 40 Millionen Kenianern.', dishPrice: 150, dishPriceCHF: 1.5 },
-      budget:  { emoji: '🍢', name: 'Mandazi',               desc: 'Frittiertes Hefeteig-Dreieck, leicht süss — das günstigste Frühstück Ostafrikas, überall für Centbeträge.', dishPrice: 20, dishPriceCHF: 0.2 } } },
+      budget:  { emoji: '🍩', name: 'Mandazi',               desc: 'Frittiertes Hefeteig-Dreieck, leicht süss — das günstigste Frühstück Ostafrikas, überall für Centbeträge.', dishPrice: 20, dishPriceCHF: 0.2 } } },
   GE: { name: 'Georgien', flag: '🇬🇪', currency: 'GEL', continent: 'Asien / Europa', geo: [44, 42, 6],
     dishes: {
       premium: { emoji: '🥩', name: 'Mtsvadi',    desc: 'Saftige Schweinefleischspiesse, über Weinrebenglut gegrillt — Georgiens uralte Festtagstradition.', dishPrice: 55, dishPriceCHF: 19 },
@@ -368,13 +368,13 @@ const COUNTRIES = {
       budget:  { emoji: '🍝', name: 'Tsuivan',        desc: 'Gebratene Nudeln mit Hammelfleisch und Gemüse — günstigstes Alltagsgericht in mongolischen Garküchen.', dishPrice: 5000, dishPriceCHF: 1.35 } } },
   MM: { name: 'Myanmar', flag: '🇲🇲', currency: 'MMK', continent: 'Asien', geo: [96, 19, 5],
     dishes: {
-      premium: { emoji: '🐟', name: 'Shan-Nudeln',        desc: 'Reisnudeln mit gegrilltem Hähnchen, Tomatensauce und Sesamöl aus dem Shan-Staat — Myanmars Restaurantklassiker.', dishPrice: 15000, dishPriceCHF: 6.8 },
+      premium: { emoji: '🍜', name: 'Shan-Nudeln',        desc: 'Reisnudeln mit gegrilltem Hähnchen, Tomatensauce und Sesamöl aus dem Shan-Staat — Myanmars Restaurantklassiker.', dishPrice: 15000, dishPriceCHF: 6.8 },
       classic: { emoji: '🍜', name: 'Mohinga',             desc: 'Würzige Fischsuppe mit Reisnudeln und Bananen-Blütenscheiben — Myanmars geliebtes Frühstücksgericht.', dishPrice: 3000, dishPriceCHF: 1.4 },
       budget:  { emoji: '🥗', name: 'Lahpet Thoke',        desc: 'Salat aus fermentierten Teeblättern mit Erdnüssen, Knoblauch und Sesam — einzigartiger Snack ohne Gegenstück weltweit.', dishPrice: 1500, dishPriceCHF: 0.7 } } },
   RO: { name: 'Rumänien', flag: '🇷🇴', currency: 'RON', continent: 'Europa', geo: [25, 46, 6],
     dishes: {
       premium: { emoji: '🍖', name: 'Mici-Platter',  desc: 'Grosszügige Auswahl gegrillter Fleischröllchen mit Senf, Fladenbrot und Bier — Rumäniens geselliges Grillgericht.', dishPrice: 90, dishPriceCHF: 18 },
-      classic: { emoji: '🥬', name: 'Sarmale',        desc: 'In Weisskohlblätter gewickeltes Hackfleisch mit Reis, langsam im Tontopf geschmort — Rumäniens Nationalgericht.', dishPrice: 35, dishPriceCHF: 7 },
+      classic: { emoji: '🫕', name: 'Sarmale',        desc: 'In Weisskohlblätter gewickeltes Hackfleisch mit Reis, langsam im Tontopf geschmort — Rumäniens Nationalgericht.', dishPrice: 35, dishPriceCHF: 7 },
       budget:  { emoji: '🌭', name: 'Mici (3 Stk.)', desc: 'Gegrillte Hackfleischröllchen aus Rind, Lamm und Schwein mit Knoblauch — überall vom Strassenstand für Kleingeld.', dishPrice: 15, dishPriceCHF: 3 } } },
   BG: { name: 'Bulgarien', flag: '🇧🇬', currency: 'BGN', continent: 'Europa', geo: [25, 43, 6],
     dishes: {
@@ -390,12 +390,12 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🥩', name: 'Roštilj-Platter', desc: 'Gemischter Grillplatter mit Ćevapčići, Pljeskavica und Karadordeva — Serbiens Grillkultur auf einem Teller.', dishPrice: 2500, dishPriceCHF: 21.5 },
       classic: { emoji: '🍔', name: 'Pljeskavica',      desc: 'Grosses gewürztes Hackfleischsteak im Fladenbrot mit Ajvar und Zwiebeln — Serbiens beliebtestes Strassengericht.', dishPrice: 800, dishPriceCHF: 6.9 },
-      budget:  { emoji: '🥧', name: 'Burek',             desc: 'Blätterteigpastete mit Fleisch, Käse oder Spinat — in jeder Bäckerei Serbiens ab dem frühen Morgen erhältlich.', dishPrice: 200, dishPriceCHF: 1.7 } } },
+      budget:  { emoji: '🫓', name: 'Burek',             desc: 'Blätterteigpastete mit Fleisch, Käse oder Spinat — in jeder Bäckerei Serbiens ab dem frühen Morgen erhältlich.', dishPrice: 200, dishPriceCHF: 1.7 } } },
   ET: { name: 'Äthiopien', flag: '🇪🇹', currency: 'ETB', continent: 'Afrika', geo: [40, 9, 5],
     dishes: {
       premium: { emoji: '🫓', name: 'Beyainatu',     desc: 'Grosse Injera mit über zehn verschiedenen Wats (Eintöpfen) aus Fleisch und Gemüse — das vollständige äthiopische Festmahl.', dishPrice: 600, dishPriceCHF: 9.7 },
       classic: { emoji: '🥩', name: 'Tibs',           desc: 'In Butter und Gewürzen angebratenes Rind- oder Lammfleisch auf Injera — Äthiopiens beliebtester Restaurantklassiker.', dishPrice: 220, dishPriceCHF: 3.5 },
-      budget:  { emoji: '🫓', name: 'Shiro Wat',      desc: 'Cremiges Kichererbsenmehl-Curry auf saurem Injera-Fladenbrot — das günstigste und sättigendste Alltagsessen Äthiopiens.', dishPrice: 70, dishPriceCHF: 1.1 } } },
+      budget:  { emoji: '🫕', name: 'Shiro Wat',      desc: 'Cremiges Kichererbsenmehl-Curry auf saurem Injera-Fladenbrot — das günstigste und sättigendste Alltagsessen Äthiopiens.', dishPrice: 70, dishPriceCHF: 1.1 } } },
   TZ: { name: 'Tansania', flag: '🇹🇿', currency: 'TZS', continent: 'Afrika', geo: [35, -6, 5],
     dishes: {
       premium: { emoji: '🦐', name: 'Sansibar-Meeresfrüchte', desc: 'Frisch gegrillte Garnelen, Tintenfisch und Fisch vom Hafen Sansibars — Indik-Meeresfrüchte am Strand genossen.', dishPrice: 30000, dishPriceCHF: 11 },
@@ -410,10 +410,10 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🐪', name: 'Kamelbraten',    desc: 'Zartes Kamelfleisch mit Safranreis und getrockneten Früchten — Katars exklusivste traditionelle Delikatesse.', dishPrice: 280, dishPriceCHF: 71 },
       classic: { emoji: '🍛', name: 'Machboos',        desc: 'Gewürzter Langkornreis mit Lamm oder Huhn und Durreh-Sosse — Katars Nationalgericht, tief verwurzelt in der Beduinenküche.', dishPrice: 65, dishPriceCHF: 16.5 },
-      budget:  { emoji: '🌯', name: 'Shawarma',         desc: 'Dünn geschnittenes Fleisch im Fladenbrot mit Tahin und Gemüse — in Dohas Arbeiterviertelläden günstig erhältlich.', dishPrice: 15, dishPriceCHF: 3.8 } } },
+      budget:  { emoji: '🥙', name: 'Shawarma',         desc: 'Dünn geschnittenes Fleisch im Fladenbrot mit Tahin und Gemüse — in Dohas Arbeiterviertelläden günstig erhältlich.', dishPrice: 15, dishPriceCHF: 3.8 } } },
   IR: { name: 'Iran', flag: '🇮🇷', currency: 'IRR', continent: 'Naher Osten', geo: [53, 32, 4],
     dishes: {
-      premium: { emoji: '🌿', name: 'Ghormeh Sabzi', desc: 'Kräuter-Lamm-Eintopf mit getrockneten Limetten und Kidney-Bohnen — Irans komplexestes und geliebtestes Gericht.', dishPrice: 5000000, dishPriceCHF: 10 },
+      premium: { emoji: '🍲', name: 'Ghormeh Sabzi', desc: 'Kräuter-Lamm-Eintopf mit getrockneten Limetten und Kidney-Bohnen — Irans komplexestes und geliebtestes Gericht.', dishPrice: 5000000, dishPriceCHF: 10 },
       classic: { emoji: '🍢', name: 'Kebab Koobideh', desc: 'Gegrilltes Hackfleisch-Spiess auf Safranreis mit gegrillter Tomate — das alltägliche Restaurantgericht im ganzen Land.', dishPrice: 2000000, dishPriceCHF: 4 },
       budget:  { emoji: '🍜', name: 'Ash Reshteh',    desc: 'Dicke Kräutersuppe mit Nudeln, Spinat und Kashk (Molkenprodukt) — Irans traditionelles Winteressen und Festtagssuppe.', dishPrice: 500000, dishPriceCHF: 1 } } },
   CU: { name: 'Kuba', flag: '🇨🇺', currency: 'CUP', continent: 'Mittelamerika', geo: [-80, 22, 6],
@@ -448,7 +448,7 @@ const COUNTRIES = {
   MV: { name: 'Malediven', flag: '🇲🇻', currency: 'MVR', continent: 'Asien', geo: [73, 4, 7],
     dishes: {
       premium: { emoji: '🦞', name: 'Hummer-Dinner',    desc: 'Frischer Hummer auf Kokosreis im Überwasser-Bungalow — das Inbegriff des maledivischen Luxusdinnererlebnisses, teuerster Archipel Asiens.', dishPrice: 1400, dishPriceCHF: 80 },
-      classic: { emoji: '🍛', name: 'Garudhiya',         desc: 'Klare Thunfischbrühe mit Reis, Limette und Chili-Paste — das schlichte Nationalgericht der Einheimischen auf den Local Islands.', dishPrice: 220, dishPriceCHF: 12.60 },
+      classic: { emoji: '🐟', name: 'Garudhiya',         desc: 'Klare Thunfischbrühe mit Reis, Limette und Chili-Paste — das schlichte Nationalgericht der Einheimischen auf den Local Islands.', dishPrice: 220, dishPriceCHF: 12.60 },
       budget:  { emoji: '🥥', name: 'Mas Huni + Roshi',  desc: 'Thunfisch mit geriebenem Kokos und Zwiebeln auf Fladenbrot — das günstigste und authentischste Frühstück der Malediven.', dishPrice: 30, dishPriceCHF: 1.70 } } },
 
   // ── NEU: Europa ──
@@ -456,7 +456,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🐏', name: 'Tave Kosi',      desc: 'Im Ofen gebackenes Lamm mit Joghurt-Ei-Kruste — Albaniens wärmstes Nationalgericht, in jedem besseren Restaurant das Aushängeschild.', dishPrice: 2800, dishPriceCHF: 27 },
       classic: { emoji: '🫕', name: 'Fërgesë',          desc: 'Gebratene Paprika, Tomaten und albanischer Schafskäse in der Pfanne — Tiranas einfachstes und beliebtestes Mittagessen.', dishPrice: 750, dishPriceCHF: 7.30 },
-      budget:  { emoji: '🥧', name: 'Byrek me Spinaq',  desc: 'Knuspriger Blätterteig mit Spinat und Weichkäse — Albaniens Alltagsgebäck, frisch aus dem Holzofen für wenige Lek.', dishPrice: 150, dishPriceCHF: 1.45 } } },
+      budget:  { emoji: '🫓', name: 'Byrek me Spinaq',  desc: 'Knuspriger Blätterteig mit Spinat und Weichkäse — Albaniens Alltagsgebäck, frisch aus dem Holzofen für wenige Lek.', dishPrice: 150, dishPriceCHF: 1.45 } } },
 
   IE: { name: 'Irland', flag: '🇮🇪', currency: 'EUR', continent: 'Europa', geo: [-8, 53, 5],
     dishes: {
@@ -468,7 +468,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🥩', name: 'Mici mit Mămăligă', desc: 'Gegrillte Hackfleisch-Röllchen auf Polenta mit saurer Sahne und Hausrotwein — Moldaus sonntägliches Restaurantfestmahl.', dishPrice: 380, dishPriceCHF: 19.50 },
       classic: { emoji: '🍲', name: 'Zeamă',              desc: 'Saure Hühnersuppe mit hausgemachten Nudeln und viel Dill — Moldaus heilendes Alltagsgericht, in jeder Küche täglich frisch.', dishPrice: 95, dishPriceCHF: 4.90 },
-      budget:  { emoji: '🥟', name: 'Plăcintă',           desc: 'Gefüllte Blätterteig-Pastete mit Kartoffeln, Kohl oder Käse — Moldaus günstigstes Strassengebäck, überall erhältlich.', dishPrice: 28, dishPriceCHF: 1.43 } } },
+      budget:  { emoji: '🫓', name: 'Plăcintă',           desc: 'Gefüllte Blätterteig-Pastete mit Kartoffeln, Kohl oder Käse — Moldaus günstigstes Strassengebäck, überall erhältlich.', dishPrice: 28, dishPriceCHF: 1.43 } } },
 
   // ── NEU: Nordamerika / Karibik ──
   DO: { name: 'Dom. Republik', flag: '🇩🇴', currency: 'DOP', continent: 'Mittelamerika', geo: [-70, 19, 7],
@@ -481,7 +481,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🦞', name: 'Jerk Lobster',       desc: 'Karibischer Hummer in Scotch-Bonnet-Marinade über Pimentholz gegrillt — das Premiumgericht in Jamaicas Beach-Restaurants.', dishPrice: 4800, dishPriceCHF: 28.70 },
       classic: { emoji: '🍗', name: 'Jerk Chicken',        desc: 'Langsam über Pimentholz gegrilltes Hähnchen in würziger Scotch-Bonnet-Marinade — Jamaicas unbestrittenes Nationalgericht.', dishPrice: 1300, dishPriceCHF: 7.80 },
-      budget:  { emoji: '🥟', name: 'Jamaican Beef Patty', desc: 'Flockiges Blätterteig-Gebäck mit würzigem Rindshackfleisch — Jamaicas beliebtester Schnellsnack für wenige Dollar.', dishPrice: 370, dishPriceCHF: 2.22 } } },
+      budget:  { emoji: '🥧', name: 'Jamaican Beef Patty', desc: 'Flockiges Blätterteig-Gebäck mit würzigem Rindshackfleisch — Jamaicas beliebtester Schnellsnack für wenige Dollar.', dishPrice: 370, dishPriceCHF: 2.22 } } },
 
   PA: { name: 'Panama', flag: '🇵🇦', currency: 'USD', continent: 'Mittelamerika', geo: [-80, 9, 7],
     dishes: {
@@ -513,7 +513,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🍖', name: 'Brochettes de Chèvre', desc: 'Gegrillte Ziegenfleischspiesse mit Ugali und Tomatensalat — Kigalis beliebtestes Abendessen in den Gartenrestaurants der Hauptstadt.', dishPrice: 18000, dishPriceCHF: 13.04 },
       classic: { emoji: '🍚', name: 'Isombe na Ibirayi',     desc: 'Gestampfte Maniokblätter mit Kartoffeln und Palmöl — Ruandas alltägliche Basismahlzeit, kräftig und nahrhaft.', dishPrice: 6000, dishPriceCHF: 4.35 },
-      budget:  { emoji: '🌿', name: 'Ubugali',                desc: 'Steifes Maniokmehlgericht, von der Gemeinschaftsschüssel gegessen — Ruandas günstigstes und sättigstes Grundnahrungsmittel.', dishPrice: 1500, dishPriceCHF: 1.09 } } },
+      budget:  { emoji: '🍚', name: 'Ubugali',                desc: 'Steifes Maniokmehlgericht, von der Gemeinschaftsschüssel gegessen — Ruandas günstigstes und sättigstes Grundnahrungsmittel.', dishPrice: 1500, dishPriceCHF: 1.09 } } },
 
   NA: { name: 'Namibia', flag: '🇳🇦', currency: 'NAD', continent: 'Afrika', geo: [18, -22, 5],
     dishes: {
@@ -555,7 +555,7 @@ const COUNTRIES = {
 
   MO: { name: 'Macau', flag: '🇲🇴', currency: 'MOP', continent: 'Asien', geo: [113.55, 22.2, 10],
     dishes: {
-      premium: { emoji: '🦐', name: 'Bacalhau com Natas', desc: 'Stockfisch mit Sahne und Kartoffeln überbacken — Macaus portugiesisches Erbe auf dem Teller, serviert in historischen Tavernen.', dishPrice: 320, dishPriceCHF: 40 },
+      premium: { emoji: '🐟', name: 'Bacalhau com Natas', desc: 'Stockfisch mit Sahne und Kartoffeln überbacken — Macaus portugiesisches Erbe auf dem Teller, serviert in historischen Tavernen.', dishPrice: 320, dishPriceCHF: 40 },
       classic: { emoji: '🥩', name: 'Pork Chop Bun',       desc: 'Paniertes Schweinekotelett im Kaisersemmel — Macaus beliebtestes Strassengericht, in jedem lokalen Café erhältlich.', dishPrice: 48, dishPriceCHF: 6 },
       budget:  { emoji: '🥐', name: 'Egg Tart',             desc: 'Cremige Puddingtörtchen aus Blätterteig — das portugiesische Pastel de Nata in seiner macauischen Form.', dishPrice: 12, dishPriceCHF: 1.5 } } },
 
@@ -576,7 +576,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🐑', name: 'Ouzi',                desc: 'Ganzes Lamm langsam über Reis geschmort, gewürzt mit Safran und Kardamom — Kuwaits festlichstes Nationalgericht.', dishPrice: 15, dishPriceCHF: 49 },
       classic: { emoji: '🍚', name: 'Machboos',             desc: 'Gewürzreis mit Lamm oder Huhn und getrockneten Limetten — Kuwaits alltägliches Nationalgericht in jedem Haushalt.', dishPrice: 4, dishPriceCHF: 13 },
-      budget:  { emoji: '🧆', name: 'Karak Chai & Samboosa', desc: 'Süsser Kardamom-Tee mit frittierter Teigtasche — Kuwaits günstigstes Frühstück an jedem Strassenstand.', dishPrice: 0.5, dishPriceCHF: 1.65 } } },
+      budget:  { emoji: '☕', name: 'Karak Chai & Samboosa', desc: 'Süsser Kardamom-Tee mit frittierter Teigtasche — Kuwaits günstigstes Frühstück an jedem Strassenstand.', dishPrice: 0.5, dishPriceCHF: 1.65 } } },
 
   OM: { name: 'Oman', flag: '🇴🇲', currency: 'OMR', continent: 'Naher Osten', geo: [57, 23, 5],
     dishes: {
@@ -586,7 +586,7 @@ const COUNTRIES = {
 
   BH: { name: 'Bahrain', flag: '🇧🇭', currency: 'BHD', continent: 'Naher Osten', geo: [50.5, 26, 8],
     dishes: {
-      premium: { emoji: '🦞', name: 'Hamour-Platte',       desc: 'Gegrillter Zackenbarsch mit Safranreis und Meeresfrüchten — Bahrains exklusivstes Fischgericht in den Corniche-Restaurants.', dishPrice: 18, dishPriceCHF: 49 },
+      premium: { emoji: '🐟', name: 'Hamour-Platte',       desc: 'Gegrillter Zackenbarsch mit Safranreis und Meeresfrüchten — Bahrains exklusivstes Fischgericht in den Corniche-Restaurants.', dishPrice: 18, dishPriceCHF: 49 },
       classic: { emoji: '🍚', name: 'Kabsa',                desc: 'Aromtischer Langkornreis mit Hühnchen, Tomaten und arabischen Gewürzen — das tägliche Mittagessen der Bahrainis.', dishPrice: 4, dishPriceCHF: 10.9 },
       budget:  { emoji: '🧆', name: 'Muhammar & Samboosa', desc: 'Süsser Reiskuchen mit Dattelsirup und frittierte Teigtasche — Bahrains günstigstes traditionelles Frühstück.', dishPrice: 0.8, dishPriceCHF: 2.2 } } },
 
@@ -655,7 +655,7 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🦀', name: 'Crab & Dumpling',       desc: 'Karibische Königskrabbe in würziger Kokosmilchsauce mit Mehlklössen — Tobagos berühmtestes Gericht in den Strandrestaurants.', dishPrice: 200, dishPriceCHF: 29.9 },
       classic: { emoji: '🥙', name: 'Doubles',               desc: 'Zwei frittierte Mehlfladen mit Kichererbsen-Curry und Tamarinden-Chutney — Trinidads beliebtestes Strassenfrühstück.', dishPrice: 15, dishPriceCHF: 2.2 },
-      budget:  { emoji: '🥐', name: 'Aloo Pie',              desc: 'Frittiertes Teiggebäck mit gewürztem Kartoffelmus — günstigster karibischer Strassensnack in Port of Spain.', dishPrice: 8, dishPriceCHF: 1.2 } } },
+      budget:  { emoji: '🥧', name: 'Aloo Pie',              desc: 'Frittiertes Teiggebäck mit gewürztem Kartoffelmus — günstigster karibischer Strassensnack in Port of Spain.', dishPrice: 8, dishPriceCHF: 1.2 } } },
 
   // ── NEU: Afrika ──
   MU: { name: 'Mauritius', flag: '🇲🇺', currency: 'MUR', continent: 'Afrika', geo: [57.5, -20, 8],
@@ -699,11 +699,11 @@ const COUNTRIES = {
     dishes: {
       premium: { emoji: '🥩', name: 'Jagneshki Kotli',       desc: 'Geschmortes Lammfleisch in Tontöpfen mit Paprika und Gewürzen — Nordmazedoniens festlichstes Ofengericht.', dishPrice: 1200, dishPriceCHF: 19.7 },
       classic: { emoji: '🫘', name: 'Tavche Gravche',        desc: 'Weisse Bohnen langsam im Tontopf gebacken mit Paprika und Zwiebeln — Nordmazedoniens nationales Trostgericht.', dishPrice: 350, dishPriceCHF: 5.7 },
-      budget:  { emoji: '🥐', name: 'Burek so Sirenje',      desc: 'Blätterteig-Pastete mit weissem Schafskäse — Skopjes günstigstes und beliebtestes Frühstück an jeder Ecke.', dishPrice: 80, dishPriceCHF: 1.3 } } },
+      budget:  { emoji: '🫓', name: 'Burek so Sirenje',      desc: 'Blätterteig-Pastete mit weissem Schafskäse — Skopjes günstigstes und beliebtestes Frühstück an jeder Ecke.', dishPrice: 80, dishPriceCHF: 1.3 } } },
 
   BA: { name: 'Bosnien-Herzegowina', flag: '🇧🇦', currency: 'BAM', continent: 'Europa', geo: [17.7, 44.2, 6],
     dishes: {
-      premium: { emoji: '🥩', name: 'Begova Čorba',          desc: 'Cremige Hühnersuppe mit Okra und Zitronensaft — Sarajevos altehrwürdige Beg-Suppe aus osmanischer Kaiserzeit.', dishPrice: 30, dishPriceCHF: 15.4 },
+      premium: { emoji: '🍲', name: 'Begova Čorba',          desc: 'Cremige Hühnersuppe mit Okra und Zitronensaft — Sarajevos altehrwürdige Beg-Suppe aus osmanischer Kaiserzeit.', dishPrice: 30, dishPriceCHF: 15.4 },
       classic: { emoji: '🌯', name: 'Ćevapi',                desc: 'Gegrillte Rindfleisch-Hackwürstchen im Somun-Fladenbrot mit Kajmak und Ajvar — Bosniens unumstrittenes Nationalgericht.', dishPrice: 10, dishPriceCHF: 5.1 },
       budget:  { emoji: '🥐', name: 'Burek sa Mesom',        desc: 'Spiralförmige Blätterteig-Rolle mit Hackfleischfüllung — Sarajevos günstigstes Frühstück und Strassenessen.', dishPrice: 4, dishPriceCHF: 2.1 } } }
 };
