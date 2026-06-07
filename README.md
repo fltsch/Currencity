@@ -2,7 +2,7 @@
 
 Currencity ist eine interaktive Webanwendung, die zeigt, wie weit das eigene Budget im Ausland reicht. Basierend auf Live-Wechselkursen und lokalen Lebensmittelpreisen wird ein sogenannter **Local Craving Index (LCI)** berechnet: Wie viele Mahlzeiten kann ich mir im Zielland im Vergleich zur Schweiz leisten?
 
-**Live:** [https://fltsch.github.io/Currencity](https://fltsch.github.io/Currencity)
+**Live:** [https://im2.fegusimi.myhostpoint.ch](https://im2.fegusimi.myhostpoint.ch)
 
 ---
 
