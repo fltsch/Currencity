@@ -108,28 +108,60 @@ Referenz-Heimgericht: Rösti, CHF 18.50
 
 ### Projektidee und Entstehung
 
-Die Grundidee entstand aus einer persönlichen Frage: *Wie weit reicht mein Budget wirklich, wenn ich ins Ausland reise?* Wechselkurse allein beantworten das nicht — entscheidend ist, was man vor Ort tatsächlich kaufen kann. Daraus entstand das Konzept des **Local Craving Index (LCI)**: eine einzige Zahl, die Kaufkraft konkret und verständlich macht — gemessen an einem lokalen Alltagsgericht.
+Die Grundidee entstand aus einer persönlichen Frage: *Wie weit reicht mein Budget wirklich, wenn ich ins Ausland reise?* Wechselkurse allein beantworten das nicht — 1 CHF = 1500 JPY klingt viel, sagt aber nichts darüber aus, was man sich davon kaufen kann. Entscheidend ist, wie viele Mahlzeiten man sich im Zielland leisten kann — im Vergleich zu zuhause. Daraus entstand der **Local Craving Index (LCI)**: eine einzige Zahl, die Kaufkraft konkret und alltagsnah übersetzt, basierend auf einem repräsentativen lokalen Gericht pro Land.
+
+Als Referenz wurde bewusst die Schweiz gewählt — das Projekt richtet sich an Reisende aus der Schweiz, und der Rösti (CHF 18.50) dient als stabiler Anker für den Vergleich. Ein LCI von 2.4× bedeutet: mein Budget reicht im Zielland 2.4-mal so weit wie zu Hause.
 
 ### Entwicklungsprozess
 
-Der Einstieg war technisch herausfordernd. D3.js und TopoJSON waren neu für mich, und eine interaktive Weltkarte mit Zoom, Pan, Klick- und Touch-Unterstützung zu bauen hat deutlich mehr Zeit gebraucht als erwartet. Besonders iOS Safari hat eigene Regeln: Touch-Events auf SVG-Elementen verhalten sich anders als auf HTML-Elementen, was zu einem eigenen Touch-Handler mit `AbortController` geführt hat — komplett unabhängig vom D3-Zoom.
+**Technischer Aufbau**
+Der Einstieg war anspruchsvoll. D3.js und TopoJSON waren neu für mich — eine interaktive Weltkarte mit Zoom, Pan, Klick- und Touch-Unterstützung aufzubauen hat deutlich mehr Zeit gebraucht als erwartet. Besonders iOS Safari hat eigene Regeln: Touch-Events auf SVG-Elementen lassen sich dort nicht mit `preventDefault()` unterbrechen. Die Lösung war ein vollständig eigener Touch-Handler auf dem umgebenden HTML-`div`, verwaltet mit einem `AbortController`, der bei jedem Resize sauber neu aufgebaut wird — komplett unabhängig vom D3-Zoom, der nur noch für Mausrad und programmatische Animationen zuständig ist.
 
-Die Datenarbeit war aufwändiger als gedacht. Für über 100 Länder mussten drei Gerichte pro Land recherchiert, bewertet und mit realistischen Lokalpreisen versehen werden. Dabei zeigte sich schnell, dass viele Annahmen zu Preisen korrigiert werden mussten — zum Beispiel, dass Pad Thai in Thailand deutlich günstiger ist als zunächst angenommen, oder dass Pad Thai in der App mit einem falschen Fallback-Preis hinterlegt war.
+**Daten und Inhalte**
+Die Datenarbeit war aufwändiger als erwartet. Für über 100 Länder mussten je drei Gerichte (Premium, Classic, Budget) recherchiert, inhaltlich begründet und mit realistischen Lokalpreisen versehen werden. Dabei stellte sich heraus, dass viele ursprüngliche Annahmen nicht stimmten — zum Beispiel waren mehrere `dishPriceCHF`-Fallback-Werte (statische CHF-Schätzwerte für den Fall, dass die API nicht antwortet) deutlich zu hoch angesetzt, etwa Pad Thai mit 21 CHF statt der realen ~2 CHF. Im Normalbetrieb werden diese Fallback-Werte nie angezeigt — die App rechnet live mit der apip.cc-API —, sie hätten aber bei einem API-Ausfall zu falschen Anzeigen geführt.
 
-Eine wichtige Erkenntnis beim Live-Test: Der LCI muss konsequent mit Live-Wechselkursen berechnet werden — andernfalls stimmt der Vergleich nicht. Die Formel wurde deshalb in allen drei JS-Dateien (`app.js`, `preise.js`, `lci.js`) identisch gehalten und auf denselben API-Endpunkt ausgerichtet.
+**LCI-Formel und API-Konsistenz**
+Eine wichtige Erkenntnis war, dass die LCI-Berechnung in allen drei JavaScript-Dateien (`app.js`, `preise.js`, `lci.js`) exakt identisch sein muss — sonst zeigt das Panel einen anderen Wert als die Preistabelle. Die Formel lautet:
+
+```
+LCI = Math.floor(budget_lokal / dishPrice) / Math.floor(500 / 18.5)
+```
+
+Alle drei Dateien verwenden denselben API-Endpunkt (`apip.cc/rates.json`) und dieselbe Umrechnungslogik. Das wurde in einem gemeinsamen Review-Schritt geprüft und bestätigt.
 
 ### Herausforderungen
 
-- **Touch auf Mobile**: Swipe-to-close für das Panel musste manuell implementiert werden; ein bestehender Bug beim Vergleichs-Overlay (Overlay verschwand beim Wischen nicht vollständig) wurde kurz vor der Abgabe noch behoben.
-- **Emoji-Konsistenz**: Bei der finalen Durchsicht wurden zahlreiche Gerichte mit unpassenden Emojis gefunden — ein Krokodil für ein Fischcurry aus Kambodscha, ein Hummer für Paella. 47 Emojis wurden korrigiert.
-- **Responsive Design**: Desktop und Mobile haben grundlegend unterschiedliche Layouts — das Panel ist auf Desktop ein Seitensheet, auf Mobile ein Bottom Sheet. Beide mussten unabhängig voneinander korrekt funktionieren.
-- **Abgabe-Readiness**: Kurz vor der Abgabe zeigte sich, dass der README-Link auf GitHub Pages zeigte (nicht aktiviert) statt auf Hostpoint. Kleinigkeiten wie diese fallen erst beim kritischen Schlussdurchgang auf.
+**Mobile Touch und Swipe-Bugs**
+Das Panel auf Mobile hat ein eigenes Swipe-to-close: der Nutzer zieht es nach unten und es schnappt zurück oder schliesst sich. Das Vergleichs-Overlay hatte dieses Verhalten nicht — es existierte kein Touch-Handler dafür. Kurz vor der Abgabe wurde gemeldet, dass das Overlay beim Wischen nach unten nicht vollständig verschwindet. Die Ursache: das Panel hinter dem Overlay reagierte auf den Touch und verschob sich leicht, während das Overlay selbst stehenblieb. Die Lösung war ein eigener Swipe-Handler am Overlay-Header mit einer `translateY`-Animation und einem 300ms-Timeout, bevor `display: none` gesetzt wird. Zusätzlich wurde `schliesse_vergleich_overlay()` so erweitert, dass es `transform` und `transition` vor dem Ausblenden zurücksetzt — damit beim nächsten Öffnen keine alten Stile hängenbleiben.
+
+**Emoji-Konsistenz**
+Bei der finalen inhaltlichen Durchsicht wurden zahlreiche Gerichte mit unpassenden Emojis gefunden. Konkrete Beispiele: Ein 🐊 Krokodil stand für *Amok Trei* (ein Fischcurry aus Kambodscha), ein 🦞 Hummer für *Paella* (ein Reisgericht), ein 🥐 Croissant für *Croque Monsieur* (ein Sandwich), ein 🫐 Blaubeere für *Kanelbulle* (ein Zimtschneckchen). Insgesamt wurden 47 Emojis korrigiert — systematisch per Grep und manuellem Abgleich.
+
+**Währungsbezeichnungen**
+Der Währungsname für BHD (Bahrain) war an zwei Stellen inkonsistent: In `CURRENCY_NAMES` stand `'Bahrainischer Dinar'` (Deutsch), im Währungswähler `CURRENCY_LIST` hingegen noch `'Bahraini Dinar'` (Englisch). Solche Inkonsistenzen fallen nur bei einem vollständigen Abgleich auf.
+
+**Responsive Design**
+Desktop und Mobile haben grundlegend unterschiedliche Layouts: Das Panel ist auf Desktop ein Seitensheet (rechts), auf Mobile ein Bottom Sheet (unten). Beide mussten unabhängig voneinander korrekt funktionieren — inklusive eigener Swipe-Gesten, eigener Header-Höhen und eigenem Verhalten beim Öffnen und Schliessen der Karte.
+
+**Abgabe-Readiness**
+Kurz vor der Abgabe zeigte sich, dass der Live-Link im README auf `https://fltsch.github.io/Currencity` zeigte — GitHub Pages war nie aktiviert worden, der Link führte ins Leere. Tatsächlich läuft die App auf Hostpoint (`https://im2.fegusimi.myhostpoint.ch`). Ausserdem war die `.claude/`-Konfigurationsmappe des KI-Assistenten nicht in `.gitignore` eingetragen und hätte mit ins Repository gepusht werden können. Solche Details fallen erst beim strukturierten Schlussdurchgang auf.
+
+**Statisches LCI-Beispiel**
+Die Erklärungsseite `lci.html` enthielt ein fest eingetragenes Japan-Beispiel mit einem Ramen-Preis von CHF 9.– — was mit den aktuellen Live-Wechselkursen nicht mehr stimmte (realer Wert: ca. CHF 7.50). Das Beispiel wurde auf die aktuellen Kurse abgeglichen, um Widersprüche zwischen der Erklärung und dem tatsächlichen LCI-Explorer zu vermeiden.
 
 ### KI-Unterstützung
 
-Dieses Projekt wurde mit Unterstützung von Claude (Anthropic) als KI-Coding-Assistent entwickelt. Die KI wurde eingesetzt für: Code-Debugging, CSS-Problemlösungen, JavaScript-Implementierungen sowie die finale Code-Review und Optimierung (u.a. Refactoring von `Intl.NumberFormat`-Instanzen auf Modulebene, Hoist von Konfigurationskonstanten).
+Dieses Projekt wurde mit Claude (Anthropic) als KI-Coding-Assistent entwickelt. Die Zusammenarbeit verlief über mehrere Sitzungen und war eng in den Entwicklungsprozess eingebettet — nicht als einmaliger Codegenerator, sondern als iterativer Gesprächspartner.
 
-Konzept, Design, Datenrecherche (Länder, Gerichte & Preise) und alle inhaltlichen Entscheidungen stammen vom Autor. Die KI hat keine Inhalte erfunden — sie hat geholfen, Ideen umzusetzen und Fehler zu finden.
+**Was die KI konkret beigetragen hat:**
+- JavaScript-Implementierungen (Touch-Handler, Swipe-Logik, LCI-Berechnung, Animations-Funktionen)
+- CSS-Problemlösungen (Panel-Layout, Overlay, Mobile-Breakpoints)
+- Systematische Fehlersuche: vollständiger Abgleich aller 47 Emoji-Fehler, Überprüfung aller Währungsnamen, Verifikation der LCI-Formel in allen drei Dateien
+- Code-Review vor der Abgabe: Identifikation eines toten `fmt`-Variables, inkonsistenter Fallback-Werte und einer fehlenden Style-Rücksetzung im Overlay
+- Refactoring: `Intl.NumberFormat`-Instanzen von inline (bei jedem Aufruf neu erstellt) auf Modulebene verschoben, Konfigurationsobjekte (`TIER_BADGES`, `VGL_TIERS`) und die Hilfsfunktion `lci_label()` aus den Funktionsrümpfen herausgezogen
+
+**Was der Autor selbst erarbeitet hat:**
+Konzept, Informationsarchitektur und Design stammen vollständig vom Autor. Die Auswahl der über 100 Länder, die Recherche und Festlegung aller Gerichte und Lokalpreise, die Entscheidung für den LCI als zentrales Konzept sowie das visuelle Erscheinungsbild der App wurden eigenständig entwickelt. Die KI hat keine Inhalte erfunden — sie hat geholfen, Ideen umzusetzen, Fehler zu finden und Code sauber zu halten.
 
 ---
 
