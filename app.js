@@ -1395,7 +1395,7 @@ async function baue_d3_karte() {
     .attr('d', pfad)
     .on('mouseover', function(event, d) {
       const code = ISO_ZU_CODE[String(d.id).padStart(3, '0')];
-      if (!code) return;
+      if (!code || !COUNTRIES[code]) return;
       zeige_tooltip(event, COUNTRIES[code].flag + ' ' + COUNTRIES[code].name);
     })
     .on('mousemove', function(event) {
@@ -1879,10 +1879,6 @@ function setup_modal() {
   const overlay = document.getElementById('modal-overlay');
   const cta     = document.getElementById('modal-cta-btn');
   const modal   = document.getElementById('welcome-modal');
-  const lottie_wrap = document.getElementById('modal-lottie');
-  if (lottie_wrap) {
-    lottie_wrap.innerHTML = '<lottie-player src="https://assets2.lottiefiles.com/packages/lf20_uwR49r.json" background="transparent" speed="1" style="width:72px;height:72px;pointer-events:none;" loop autoplay></lottie-player>';
-  }
   const schon_gesehen = sessionStorage.getItem('currencity_modal_gesehen');
   if (schon_gesehen === 'true') {
     overlay.style.transition = 'none';
@@ -1891,6 +1887,7 @@ function setup_modal() {
   }
   function schliesse_modal() {
     overlay.classList.add('hidden');
+    modal.classList.remove('laden'); // FIX: #modal-laden pointer-events:auto entfernen
     sessionStorage.setItem('currencity_modal_gesehen', 'true');
     // Heimatland-Highlight sicherstellen (IP-Detection könnte noch laufen)
     setTimeout(markiere_heimatland, 400);
@@ -2215,7 +2212,9 @@ async function init() {
   }
 
   // Mobile: Karte antippen schließt das Bottom Sheet
-  document.getElementById('map-wrap').addEventListener('click', function(e) {
+  const mapWrapClick = document.getElementById('map-wrap');
+  if (!mapWrapClick) return;
+  mapWrapClick.addEventListener('click', function(e) {
     if (window.innerWidth <= 768 && document.getElementById('panel').classList.contains('open')) {
       if (e.target.tagName === 'svg' || e.target.classList.contains('ocean') || e.target.classList.contains('graticule')) {
         schliesse_panel();

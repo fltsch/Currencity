@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title>Currencity - Local Craving Index</title>
+    <title>Currencity — Interaktive Weltkarte</title>
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>"
@@ -19,7 +19,7 @@
   <body class="karte-seite">
     <!-- ── NAVIGATION: Karte | LCI | Alle Preise ── -->
     <nav id="topnav">
-      <div class="nav-logo">4<span>city</span></div>
+      <div class="nav-logo">Curren<span>city</span></div>
       <div class="nav-links">
         <a href="#" class="nav-link active" id="nav-karte">Karte</a>
         <a href="lci.html" class="nav-link" id="nav-lci">LCI</a>
@@ -81,7 +81,6 @@
           <span class="modal-flag">🇺🇸</span>
           <span class="modal-flag">🇧🇷</span>
         </div>
-        <div id="modal-lottie"></div>
         <h2 class="modal-title">Willkommen bei Currencity</h2>
         <p class="modal-text">
           Wähle ein Reiseziel auf der Karte und gib dein Budget ein.<br />
@@ -103,9 +102,10 @@
             src="lottie-laden.json"
             background="transparent"
             speed="1"
-            style="width:160px;height:160px;pointer-events:none;"
+            style="width: 160px; height: 160px; pointer-events: none"
             loop
-            autoplay>
+            autoplay
+          >
           </lottie-player>
         </div>
       </div>
@@ -212,7 +212,13 @@
           </div>
           <div class="rueck-row">
             <div class="rueck-input-gruppe">
-              <input type="text" id="rueck-input" placeholder="0" inputmode="decimal" autocomplete="off" />
+              <input
+                type="text"
+                id="rueck-input"
+                placeholder="0"
+                inputmode="decimal"
+                autocomplete="off"
+              />
               <span class="rueck-waehrung" id="rueck-ziel-waehrung">—</span>
             </div>
             <div class="rueck-gleich">=</div>

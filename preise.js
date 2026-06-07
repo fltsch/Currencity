@@ -5,7 +5,7 @@
 //  Searchbar + sortierbare Tabelle + Variante B (Lokal + CHF)
 // ─────────────────────────────────────────────────────────
 
-const KONTAKT_EMAIL = 'deine@email.ch'; // <-- hier eintragen
+const KONTAKT_EMAIL = 'fabio.fluetsch@stud.fhgr.ch';
 
 let formular_land_code = null;
 let aktuelle_kurse     = null;
